@@ -155,6 +155,9 @@ try {
  catch (Exception ex) { }
 ```
 
+Para outros exemplos, consultar a classe de teste [MundiPagg.One.IntegrationTest](../master/test/MundiPagg/One/IntegrationTest.java) no projeto.
+
+
 ## Regras do simulador por valor
 
 ### Autorização
