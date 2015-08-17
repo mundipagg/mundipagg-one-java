@@ -68,39 +68,91 @@ Exemplo no teste *createSale* na classe de teste *MundiPagg.One.IntegrationTest*
 ```java
 
 try {
+ // Define loja e ambiente de integração
+ UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
+ PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+ 
+ // Cria pedido 
+ Order order = new Order();
+ order.setOrderReference("REF123456");
+ 
+ // Cria comprador
+ Buyer buyer = new Buyer();
+ buyer.setName("Comprador da Silva");
+ buyer.setBuyerReference("COMP12345");
+ buyer.setDocumentType(DocumentTypeEnum.CPF);
+ buyer.setDocumentNumber("11122233344");
+ buyer.setEmailType(EmailTypeEnum.Comercial);
+ buyer.setEmail("comprador@provedor.com");
+ buyer.setPersonType(PersonTypeEnum.Person);
+ buyer.setHomePhone("(21)22223333");
+ 
+ // Cria um item para o carrinho de compras
+ ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+ shoppingCartItem.setItemReference("123");
+ shoppingCartItem.setName("Ingressos para o Rock in Rio");
+ shoppingCartItem.setDescription("Ingressos para Rock in Rio, todos os dias!");
+ shoppingCartItem.setQuantity(1);
+ shoppingCartItem.setTotalCostInCents(90000);
+ shoppingCartItem.setUnitCostInCents(90000);
 
-    // Endereço de IP
-    String ipAddress = "127.0.0.1";
+ // Cria carrinho de compras e adiciona a coleção de itens o item definido acima
+ ShoppingCart shoppingCart = new ShoppingCart();       
+ shoppingCart.setFreightCostInCents(2000);
+ shoppingCart.setShippingCompany("Correios");
+ shoppingCart.setShoppingCartItemCollection(new ArrayList<>());
+ shoppingCart.getShoppingCartItemCollection().add(shoppingCartItem);
+ 
+ // Cria um cartão de crédito e define endereço de cobrança
+ CreditCard creditCard = new CreditCard();
+ creditCard.setCreditCardNumber("4111111111111111");
+ creditCard.setCreditCardBrand(CreditCardBrandEnum.Visa);
+ creditCard.setExpMonth(10);
+ creditCard.setExpYear(2018);
+ creditCard.setSecurityCode("123");
+ creditCard.setHolderName("Comprador da S");
+ creditCard.setBillingAddress(new BillingAddress());
+ creditCard.getBillingAddress().setCountry(CountryEnum.Brazil);
+ creditCard.getBillingAddress().setCity("Rio de Janeiro");
+ creditCard.getBillingAddress().setState("RJ");
+ creditCard.getBillingAddress().setDistrict("Centro");
+ creditCard.getBillingAddress().setZipCode("23000-123");
+ creditCard.getBillingAddress().setStreet("Rua da Quitanda");
+ creditCard.getBillingAddress().setNumber("199");
+ 
+ // Cria a transação de cartão de crédito e define cartão criado anteriormente
+ CreditCardTransaction creditCardTransaction = new CreditCardTransaction();
+ creditCardTransaction.setAmountInCents(92000L);
+ creditCardTransaction.setOptions(new CreditCardTransactionOptions());
+ creditCardTransaction.getOptions().setPaymentMethodCode(1); // Simulator       
+ creditCardTransaction.setCreditCard(creditCard);
 
-    // Chave da Loja
-    UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D");
+ // Cria requisição de venda e usa objetos criados acima
+ CreateSaleRequest createSaleRequest = new CreateSaleRequest();
+ createSaleRequest.setCreditCardTransactionCollection(new ArrayList<>());
+ createSaleRequest.getCreditCardTransactionCollection().add(creditCardTransaction);
+ createSaleRequest.setShoppingCartCollection(new ArrayList<>());
+ createSaleRequest.getShoppingCartCollection().add(shoppingCart);
+ createSaleRequest.setOrder(order);
+ createSaleRequest.setBuyer(buyer);
+ 
+ try {
+     // Cria o cliente que vai enviar a transação
+     GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+     
+     // Autoriza a transação e retorna a resposta do gateway
+     HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
+             serviceClient.getSale().Create(createSaleRequest);
 
-    // Define o Processador das Requests/Responses
-    ApiClient apiClient = new ApiClient(
-       ApiEnvironmentEnum.Staging, // Define ambiente de integração
-       merchantKey                 // Chave da Loja
-    );
-
-    // Cria Objeto de Requisição de Token 
-    TokenRequest tokenRequest = new TokenRequest();
-
-    // Dados do pedido.
-    tokenRequest.setOrder(new OrderRequest());
-    tokenRequest.getOrder().setAmountInCents(10000L);
-    tokenRequest.getOrder().setOrderReference(UUID.randomUUID().toString().substring(0, 20));
-    tokenRequest.getOrder().setIpAddress(ipAddress);
-
-    // Opções do pedido
-    tokenRequest.setOptions(new OptionsRequest());
-    tokenRequest.getOptions().setIsCreditCardPaymentEnabled(true);
-    tokenRequest.getOptions().setIsBoletoPaymentEnabled(false);
-    tokenRequest.getOptions().setIsAntiFraudEnabled(false);
-    
-    // Solicita criação do Token e obtém a Resposta no Objeto TokenResponse
-    TokenResponse tokenResponse = apiClient.process(tokenRequest);
-
-} 
-catch(Exception e) {}
+     // Obtem objeto de requisição/resposta montado
+     CreateSaleRequest createSaleRequestResult = httpResponse.getRequest();
+     CreateSaleResponse createSaleResponseResult = httpResponse.getResponse();
+     
+     // Obtem objeto de requisição/resposta em texto no formato definido no cliente
+     String createSaleRawRequest = httpResponse.getRawRequest();
+     String createSaleRawResponse = httpResponse.getRawResponse();
+ }
+ catch (Exception ex) { }
 ```
 
 ## Regras do simulador por valor
