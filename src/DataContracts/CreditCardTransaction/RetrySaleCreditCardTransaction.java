@@ -13,15 +13,15 @@ public class RetrySaleCreditCardTransaction {
     public RetrySaleCreditCardTransaction() {}
     
     /**
+     * Código de segurança do cartão - CVV
+     */
+    private String SecurityCode;
+    
+    /**
      * Chave da transação. Utilizada para identificar uma transação de cartão de crédito no gateway
      */
     private UUID TransactionKey;
     
-    /**
-     * Código de segurança do cartão - CVV
-     */
-    private String SecurityCode;
-
     /**
      * Recupera chave da transação. Utilizada para identificar uma transação de cartão de crédito no gateway
      * @return 

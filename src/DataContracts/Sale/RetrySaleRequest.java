@@ -3,6 +3,7 @@ package DataContracts.Sale;
 import DataContracts.BaseRequest;
 import DataContracts.CreditCardTransaction.RetrySaleCreditCardTransaction;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,7 +32,7 @@ public final class RetrySaleRequest extends BaseRequest {
     /**
      * Lista de trasanções de cartão de crédito a serem retentadas
      */
-    private ArrayList<RetrySaleCreditCardTransaction> RetrySaleCreditCardTransactionCollection;
+    private List<RetrySaleCreditCardTransaction> RetrySaleCreditCardTransactionCollection;
 
     /**
      * Recupera Chave do pedido. Utilizada para identificar um pedido no gateway
@@ -69,7 +70,7 @@ public final class RetrySaleRequest extends BaseRequest {
      * Recupera Lista de trasanções de cartão de crédito a serem retentadas
      * @return 
      */
-    public ArrayList<RetrySaleCreditCardTransaction> getRetrySaleCreditCardTransactionCollection() {
+    public List<RetrySaleCreditCardTransaction> getRetrySaleCreditCardTransactionCollection() {
         return RetrySaleCreditCardTransactionCollection;
     }
 
@@ -77,7 +78,7 @@ public final class RetrySaleRequest extends BaseRequest {
      * Altera Lista de trasanções de cartão de crédito a serem retentadas
      * @param RetrySaleCreditCardTransactionCollection 
      */
-    public void setRetrySaleCreditCardTransactionCollection(ArrayList<RetrySaleCreditCardTransaction> RetrySaleCreditCardTransactionCollection) {
+    public void setRetrySaleCreditCardTransactionCollection(List<RetrySaleCreditCardTransaction> RetrySaleCreditCardTransactionCollection) {
         this.RetrySaleCreditCardTransactionCollection = RetrySaleCreditCardTransactionCollection;
     }   
 }

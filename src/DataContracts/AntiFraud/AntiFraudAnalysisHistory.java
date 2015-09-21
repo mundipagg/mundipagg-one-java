@@ -17,31 +17,31 @@ public class AntiFraudAnalysisHistory {
      * Status da análise do serviço de antifraude
      */
     private AntiFraudAnalysisStatusEnum AntiFraudAnalysisStatus;
-    
-    /**
-     * Mensagem de retorno do antifraude
-     */
-    private String Message;
-    
+       
     /**
      * Código de retorno do antifraude
      */
     private String ReturnCode;
-
+     
+    /**
+     * Mensagem de retorno do antifraude
+     */
+    private String ReturnMessage;
+    
     /**
      * Status de retorno do antifraude
      */
     private String ReturnStatus;
 
     /**
-     * Data de alteração de estatus
-     */
-    private Date StatusChangedDate;
-    
-    /**
      * Pontuação do pedido
      */
     private Double Score;
+    
+    /**
+     * Data de alteração de estatus
+     */
+    private Date StatusChangedDate;
     
     /**
      * Recupera status da análise do serviço de antifraude.
@@ -96,15 +96,15 @@ public class AntiFraudAnalysisHistory {
      * @return 
      */
     public String getMessage() {
-        return Message;
+        return ReturnMessage;
     }
 
     /**
      * Altera mensagem de retorno do antifraude
-     * @param Message 
+     * @param ReturnMessage 
      */
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setMessage(String ReturnMessage) {
+        this.ReturnMessage = ReturnMessage;
     }
 
     /**

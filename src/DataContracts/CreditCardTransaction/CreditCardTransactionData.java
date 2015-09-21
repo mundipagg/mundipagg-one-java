@@ -26,6 +26,11 @@ public class CreditCardTransactionData {
     private String AcquirerName;
     
     /**
+     * Código de retorno da adquirente
+     */
+    private String AcquirerReturnCode;
+    
+    /**
      * Código da filiação da loja na adquirente
      */
     private String AffiliationCode;
@@ -41,14 +46,14 @@ public class CreditCardTransactionData {
     private Long AuthorizedAmountInCents;
 
     /**
-     * Valor capturado em centavos
-     */
-    private Long CapturedAmountInCents;
-    
-    /**
      * Data limite para a captura da transação na adquirente
      */
     private Date CaptureExpirationDate;
+    
+    /**
+     * Valor capturado em centavos
+     */
+    private Long CapturedAmountInCents;
     
     /**
      * Data de criação da transação no gateway
@@ -344,6 +349,22 @@ public class CreditCardTransactionData {
         this.CreateDate = CreateDate;
     }
 
+    /**
+     * Recupera código de retorno da adquirente
+     * @return 
+     */
+    public String getAcquirerReturnCode() {
+        return AcquirerReturnCode;
+    }
+
+    /**
+     * Altera código de retorno da adquirente
+     * @param AcquirerReturnCode 
+     */
+    public void setAcquirerReturnCode(String AcquirerReturnCode) {
+        this.AcquirerReturnCode = AcquirerReturnCode;
+    }
+    
     /**
      * Recupera nome da adquirente
      * @return 

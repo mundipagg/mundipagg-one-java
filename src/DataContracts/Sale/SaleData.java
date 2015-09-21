@@ -4,7 +4,7 @@ import DataContracts.AntiFraud.AntiFraudAnalysis;
 import DataContracts.BoletoTransaction.BoletoTransactionData;
 import DataContracts.CreditCardTransaction.CreditCardTransactionData;
 import DataContracts.Order.OrderData;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,12 +30,12 @@ public class SaleData {
     /**
      * Lista de transações de boleto
      */
-    private ArrayList<BoletoTransactionData> BoletoTransactionDataCollection;
+    private List<BoletoTransactionData> BoletoTransactionDataCollection;
     
     /**
      * Lista de transações de cartão de crédito
      */
-    private ArrayList<CreditCardTransactionData> CreditCardTransactionDataCollection;
+    private List<CreditCardTransactionData> CreditCardTransactionDataCollection;
 
     /**
      * Dados do pedido
@@ -46,7 +46,7 @@ public class SaleData {
      * Recupera Lista de transações de cartão de crédito
      * @return 
      */
-    public ArrayList<CreditCardTransactionData> getCreditCardTransactionDataCollection() {
+    public List<CreditCardTransactionData> getCreditCardTransactionDataCollection() {
         return CreditCardTransactionDataCollection;
     }
 
@@ -54,7 +54,7 @@ public class SaleData {
      * Altera Lista de transações de cartão de crédito
      * @param CreditCardTransactionDataCollection 
      */
-    public void setCreditCardTransactionDataCollection(ArrayList<CreditCardTransactionData> CreditCardTransactionDataCollection) {
+    public void setCreditCardTransactionDataCollection(List<CreditCardTransactionData> CreditCardTransactionDataCollection) {
         this.CreditCardTransactionDataCollection = CreditCardTransactionDataCollection;
     }
 
@@ -62,7 +62,7 @@ public class SaleData {
      * Recupera Lista de transações de boleto
      * @return 
      */
-    public ArrayList<BoletoTransactionData> getBoletoTransactionDataCollection() {
+    public List<BoletoTransactionData> getBoletoTransactionDataCollection() {
         return BoletoTransactionDataCollection;
     }
 
@@ -70,7 +70,7 @@ public class SaleData {
      * Altera Lista de transações de boleto
      * @param BoletoTransactionDataCollection 
      */
-    public void setBoletoTransactionDataCollection(ArrayList<BoletoTransactionData> BoletoTransactionDataCollection) {
+    public void setBoletoTransactionDataCollection(List<BoletoTransactionData> BoletoTransactionDataCollection) {
         this.BoletoTransactionDataCollection = BoletoTransactionDataCollection;
     }
 

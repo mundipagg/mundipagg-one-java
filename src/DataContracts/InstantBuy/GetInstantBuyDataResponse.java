@@ -2,6 +2,7 @@ package DataContracts.InstantBuy;
 
 import DataContracts.BaseResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Dados de cartões de crédito de um comprador
@@ -19,7 +20,7 @@ public final class GetInstantBuyDataResponse extends BaseResponse {
     /**
      * Lista de Cartões de Crédito
      */
-    private ArrayList<CreditCardData> CreditCardDataCollection;
+    private List<CreditCardData> CreditCardDataCollection;
     
     /**
      * Total de cartões de crédito retornados
@@ -30,7 +31,7 @@ public final class GetInstantBuyDataResponse extends BaseResponse {
      * Recupera lista de Cartões de Crédito
      * @return 
      */
-    public ArrayList<CreditCardData> getCreditCardDataCollection() {
+    public List<CreditCardData> getCreditCardDataCollection() {
         return CreditCardDataCollection;
     }
 
@@ -38,7 +39,7 @@ public final class GetInstantBuyDataResponse extends BaseResponse {
      * Altera lista de Cartões de Crédito
      * @param CreditCardDataCollection 
      */
-    public void setCreditCardDataCollection(ArrayList<CreditCardData> CreditCardDataCollection) {
+    public void setCreditCardDataCollection(List<CreditCardData> CreditCardDataCollection) {
         this.CreditCardDataCollection = CreditCardDataCollection;
     }
 

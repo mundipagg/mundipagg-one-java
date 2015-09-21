@@ -9,6 +9,7 @@ import DataContracts.Person.Buyer;
 import DataContracts.SaleOptions;
 import DataContracts.ShoppingCart.ShoppingCart;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Criação de uma nova Venda
@@ -27,19 +28,24 @@ public final class CreateSaleRequest extends BaseRequest {
     }
     
     /**
+     * Lista de transações de boleto
+     */
+    private List<BoletoTransaction> BoletoTransactionCollection;
+    
+    /**
      * Dados do comprador
      */
     private Buyer Buyer;
-    
-    /**
-     * Lista de transações de boleto
-     */
-    private ArrayList<BoletoTransaction> BoletoTransactionCollection;
 
     /**
      * Lista de transações de cartão de crédito
      */
-    private ArrayList<CreditCardTransaction> CreditCardTransactionCollection;
+    private List<CreditCardTransaction> CreditCardTransactionCollection;
+    
+    /**
+     * Dados da loja
+     */
+    private Merchant Merchant;
     
     /**
      * Informações opcionais para a criação da venda
@@ -52,11 +58,6 @@ public final class CreateSaleRequest extends BaseRequest {
     private Order Order;
 
     /**
-     * Dados da loja
-     */
-    private Merchant Merchant;
-
-    /**
      * Informações complementares da requisição
      */
     private RequestData RequestData;
@@ -64,13 +65,13 @@ public final class CreateSaleRequest extends BaseRequest {
     /**
      * Lista de carrinhos de compra
      */
-    private ArrayList<ShoppingCart> ShoppingCartCollection;
+    private List<ShoppingCart> ShoppingCartCollection;
 
     /**
      * Recupera coleção de transação de cartão de crédito
      * @return 
      */
-    public ArrayList<CreditCardTransaction> getCreditCardTransactionCollection() {
+    public List<CreditCardTransaction> getCreditCardTransactionCollection() {
         return CreditCardTransactionCollection;
     }
 
@@ -78,7 +79,7 @@ public final class CreateSaleRequest extends BaseRequest {
      * Altera coleção de transação de cartão de crédito
      * @param CreditCardTransactionCollection 
      */
-    public void setCreditCardTransactionCollection(ArrayList<CreditCardTransaction> CreditCardTransactionCollection) {
+    public void setCreditCardTransactionCollection(List<CreditCardTransaction> CreditCardTransactionCollection) {
         this.CreditCardTransactionCollection = CreditCardTransactionCollection;
     }
 
@@ -86,7 +87,7 @@ public final class CreateSaleRequest extends BaseRequest {
      * Recupera coleção de transação de boleto
      * @return 
      */
-    public ArrayList<BoletoTransaction> getBoletoTransactionCollection() {
+    public List<BoletoTransaction> getBoletoTransactionCollection() {
         return BoletoTransactionCollection;
     }
 
@@ -94,7 +95,7 @@ public final class CreateSaleRequest extends BaseRequest {
      * Altera coleção de transação de boleto
      * @param BoletoTransactionCollection 
      */
-    public void setBoletoTransactionCollection(ArrayList<BoletoTransaction> BoletoTransactionCollection) {
+    public void setBoletoTransactionCollection(List<BoletoTransaction> BoletoTransactionCollection) {
         this.BoletoTransactionCollection = BoletoTransactionCollection;
     }
 
@@ -134,7 +135,7 @@ public final class CreateSaleRequest extends BaseRequest {
      * Recupera Lista de carrinhos de compra
      * @return 
      */
-    public ArrayList<ShoppingCart> getShoppingCartCollection() {
+    public List<ShoppingCart> getShoppingCartCollection() {
         return ShoppingCartCollection;
     }
 
@@ -142,7 +143,7 @@ public final class CreateSaleRequest extends BaseRequest {
      * Altera Lista de carrinhos de compra
      * @param ShoppingCartCollection 
      */
-    public void setShoppingCartCollection(ArrayList<ShoppingCart> ShoppingCartCollection) {
+    public void setShoppingCartCollection(List<ShoppingCart> ShoppingCartCollection) {
         this.ShoppingCartCollection = ShoppingCartCollection;
     }
 

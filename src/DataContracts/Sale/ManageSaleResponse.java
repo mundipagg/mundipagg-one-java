@@ -2,7 +2,7 @@ package DataContracts.Sale;
 
 import DataContracts.BaseResponse;
 import DataContracts.CreditCardTransaction.CreditCardTransactionResult;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Responsta de gerenciar venda
@@ -17,13 +17,13 @@ public class ManageSaleResponse extends BaseResponse {
     /**
      * Coleção de transações de cartão de crédito
      */
-    private ArrayList<CreditCardTransactionResult> CreditCardTransactionResultCollection;
+    private List<CreditCardTransactionResult> CreditCardTransactionResultCollection;
 
     /**
      * Recupera Coleção de transações de cartão de crédito
      * @return 
      */
-    public ArrayList<CreditCardTransactionResult> getCreditCardTransactionResultCollection() {
+    public List<CreditCardTransactionResult> getCreditCardTransactionResultCollection() {
         return CreditCardTransactionResultCollection;
     }
 
@@ -31,7 +31,7 @@ public class ManageSaleResponse extends BaseResponse {
      * Altera Coleção de transações de cartão de crédito
      * @param CreditCardTransactionResultCollection 
      */
-    public void setCreditCardTransactionResultCollection(ArrayList<CreditCardTransactionResult> CreditCardTransactionResultCollection) {
+    public void setCreditCardTransactionResultCollection(List<CreditCardTransactionResult> CreditCardTransactionResultCollection) {
         this.CreditCardTransactionResultCollection = CreditCardTransactionResultCollection;
     }    
 }

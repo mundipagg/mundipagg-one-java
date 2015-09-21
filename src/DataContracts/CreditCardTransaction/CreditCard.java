@@ -2,11 +2,13 @@ package DataContracts.CreditCardTransaction;
 
 import DataContracts.Address.BillingAddress;
 import EnumTypes.CreditCardBrandEnum;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.util.UUID;
 
 /**
  * Cartão de Crédito
  */
+@XStreamAlias("CreditCard")
 public class CreditCard {
     
     /**
@@ -18,6 +20,11 @@ public class CreditCard {
      * Endereço de cobrança
      */
     private BillingAddress BillingAddress;
+    
+    /**
+     * Bandeira do cartão de crédito
+     */
+    private CreditCardBrandEnum CreditCardBrand;
     
     /**
      * Número do cartão de crédito
@@ -49,11 +56,6 @@ public class CreditCard {
      */
     private String SecurityCode;
     
-    /**
-     * Bandeira do cartão de crédito
-     */
-    private CreditCardBrandEnum CreditCardBrand;
-
     /** 
      * Recupera chave do cartão de crédito. Utilizado para identificar um cartão de crédito no gateway
      * @return 

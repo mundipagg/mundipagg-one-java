@@ -2,18 +2,19 @@ package DataContracts.AntiFraud;
 
 import EnumTypes.AntiFraudAnalysisStatusEnum;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Análise de Antifraude
  */
-public class AntiFraudAnalysis {
+public final class AntiFraudAnalysis {
     
     /**
      * Construtor da Classe
      */
     public AntiFraudAnalysis() 
     {
-        this.HistoryCollection = new ArrayList();
+        this.setHistoryCollection(new ArrayList());
     }
     
     /**
@@ -34,7 +35,7 @@ public class AntiFraudAnalysis {
     /**
      * Coleção de histórico de análise antifraude
      */
-    private ArrayList<AntiFraudAnalysisHistory> HistoryCollection;
+    private List<AntiFraudAnalysisHistory> HistoryCollection;
     
     /**
      * Indica se o serviço de antifraude está habilitado
@@ -42,15 +43,15 @@ public class AntiFraudAnalysis {
     private Boolean IsAntiFraudEnabled;
     
     /**
-     * Mensagem de retorno do antifraude
-     */
-    private String Message;
-    
-    /**
      * Código de retorno do antifraude
      */
     private String ReturnCode;
-
+    
+    /**
+     * Mensagem de retorno do antifraude
+     */
+    private String ReturnMessage;
+    
     /**
      * Status de retorno do antifraude
      */
@@ -113,16 +114,16 @@ public class AntiFraudAnalysis {
      * Recupera mensagem de retorno do antifraude
      * @return 
      */
-    public String getMessage() {
-        return Message;
+    public String getReturnMessage() {
+        return ReturnMessage;
     }
 
     /**
      * Altera mensagem de retorno do antifraude
-     * @param Message 
+     * @param ReturnMessage 
      */
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setReturnMessage(String ReturnMessage) {
+        this.ReturnMessage = ReturnMessage;
     }
 
     /**
@@ -193,7 +194,7 @@ public class AntiFraudAnalysis {
      * Recupera coleção de histórico de análise de antifraude
      * @return 
      */
-    public ArrayList<AntiFraudAnalysisHistory> getHistoryCollection() {
+    public List<AntiFraudAnalysisHistory> getHistoryCollection() {
         return HistoryCollection;
     }
 
@@ -201,7 +202,7 @@ public class AntiFraudAnalysis {
      * Altera coleção de histórico de análise de antifraude
      * @param HistoryCollection 
      */
-    public void setHistoryCollection(ArrayList<AntiFraudAnalysisHistory> HistoryCollection) {
+    public void setHistoryCollection(List<AntiFraudAnalysisHistory> HistoryCollection) {
         this.HistoryCollection = HistoryCollection;
     }
 }

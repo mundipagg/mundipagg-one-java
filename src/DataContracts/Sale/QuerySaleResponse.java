@@ -2,6 +2,7 @@ package DataContracts.Sale;
 
 import DataContracts.BaseResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Resposta da consulta de pedidos
@@ -19,7 +20,7 @@ public final class QuerySaleResponse extends BaseResponse {
     /**
      * Lista de vendas
      */
-    private ArrayList<SaleData> SaleDataCollection;
+    private List<SaleData> SaleDataCollection;
 
     /**
      * Indicador Total de Vendas
@@ -30,7 +31,7 @@ public final class QuerySaleResponse extends BaseResponse {
      * Recupera Lista de vendas
      * @return 
      */
-    public ArrayList<SaleData> getSaleDataCollection() {
+    public List<SaleData> getSaleDataCollection() {
         return SaleDataCollection;
     }
 
@@ -38,7 +39,7 @@ public final class QuerySaleResponse extends BaseResponse {
      * Altera Lista de vendas
      * @param SaleDataCollection 
      */
-    public void setSaleDataCollection(ArrayList<SaleData> SaleDataCollection) {
+    public void setSaleDataCollection(List<SaleData> SaleDataCollection) {
         this.SaleDataCollection = SaleDataCollection;
     }
 

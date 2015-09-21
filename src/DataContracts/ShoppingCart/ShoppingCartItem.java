@@ -36,14 +36,14 @@ public class ShoppingCartItem {
     private Integer Quantity;
 
     /**
-     * Custo unitártio
-     */
-    private Integer UnitCostInCents;
-
-    /**
      * Custo total em centavos
      */
     private Integer TotalCostInCents;
+    
+    /**
+     * Custo unitártio
+     */
+    private Integer UnitCostInCents;
 
     /**
      * Recupera Referência do item na loja

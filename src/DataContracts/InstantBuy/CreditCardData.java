@@ -1,11 +1,13 @@
 package DataContracts.InstantBuy;
 
 import EnumTypes.CreditCardBrandEnum;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.util.UUID;
 
 /**
  * Dados do cartão de crédito
  */
+@XStreamAlias("CreditCard")
 public class CreditCardData {
     
     /**

@@ -4,7 +4,7 @@ import DataContracts.BaseResponse;
 import DataContracts.BoletoTransaction.BoletoTransactionResult;
 import DataContracts.CreditCardTransaction.CreditCardTransactionResult;
 import DataContracts.Order.OrderResult;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -20,7 +20,7 @@ public class CreateSaleResponse extends BaseResponse {
     /**
      * Lista de transações de boleto
      */
-    private ArrayList<BoletoTransactionResult> BoletoTransactionResultCollection;
+    private List<BoletoTransactionResult> BoletoTransactionResultCollection;
     
     /**
      * Chave do comprador. Utilizada para identificar um comprador no gateway
@@ -30,7 +30,7 @@ public class CreateSaleResponse extends BaseResponse {
     /**
      * Lista de transações de cartão de crédito
      */
-    private ArrayList<CreditCardTransactionResult> CreditCardTransactionResultCollection;
+    private List<CreditCardTransactionResult> CreditCardTransactionResultCollection;
 
     /**
     * Dados de retorno do pedido
@@ -41,7 +41,7 @@ public class CreateSaleResponse extends BaseResponse {
      * Recupera Lista de transações de cartão de crédito
      * @return 
      */
-    public ArrayList<CreditCardTransactionResult> getCreditCardTransactionResultCollection() {
+    public List<CreditCardTransactionResult> getCreditCardTransactionResultCollection() {
         return CreditCardTransactionResultCollection;
     }
 
@@ -49,7 +49,7 @@ public class CreateSaleResponse extends BaseResponse {
      * Recupera Lista de transações de cartão de crédito
      * @param CreditCardTransactionResultCollection 
      */
-    public void setCreditCardTransactionResultCollection(ArrayList<CreditCardTransactionResult> CreditCardTransactionResultCollection) {
+    public void setCreditCardTransactionResultCollection(List<CreditCardTransactionResult> CreditCardTransactionResultCollection) {
         this.CreditCardTransactionResultCollection = CreditCardTransactionResultCollection;
     }
 
@@ -57,7 +57,7 @@ public class CreateSaleResponse extends BaseResponse {
      * Recupera Lista de transações de boleto
      * @return 
      */
-    public ArrayList<BoletoTransactionResult> getBoletoTransactionResultCollection() {
+    public List<BoletoTransactionResult> getBoletoTransactionResultCollection() {
         return BoletoTransactionResultCollection;
     }
 
@@ -65,7 +65,7 @@ public class CreateSaleResponse extends BaseResponse {
      * Altera Lista de transações de boleto
      * @param BoletoTransactionResultCollection 
      */
-    public void setBoletoTransactionResultCollection(ArrayList<BoletoTransactionResult> BoletoTransactionResultCollection) {
+    public void setBoletoTransactionResultCollection(List<BoletoTransactionResult> BoletoTransactionResultCollection) {
         this.BoletoTransactionResultCollection = BoletoTransactionResultCollection;
     }
 

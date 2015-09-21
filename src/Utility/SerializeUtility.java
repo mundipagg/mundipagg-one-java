@@ -1,5 +1,6 @@
 package Utility;
 
+import Utility.XmlConverter.*;
 import DataContracts.*;
 import DataContracts.Address.*;
 import DataContracts.AntiFraud.*;
@@ -56,7 +57,7 @@ public class SerializeUtility<TObject> {
         else if(HttpContentTypeEnum.Xml == ContentType)
         {
             // Converte objeto para string Xml
-            XStream xstream = InitiXmlConverter();
+            XStream xstream = InitiXmlConverter(null);
             serialized = xstream.toXML(obj);
         }
         
@@ -92,7 +93,7 @@ public class SerializeUtility<TObject> {
         else if(HttpContentTypeEnum.Xml == ContentType)
         {
             // Converte string Xml para objeto
-            XStream xstream = InitiXmlConverter();
+            XStream xstream = InitiXmlConverter(TypeOfResponse);
             obj = TypeOfResponse.cast(xstream.fromXML(Serialized));
         }
         
@@ -102,15 +103,24 @@ public class SerializeUtility<TObject> {
     
     /**
      * Inicializa, Configura e retorna objeto responsavel por serializar/deserializar XML
+     * @param TypeOfResponse
      * @return 
      */
-    private XStream InitiXmlConverter()
+    private XStream InitiXmlConverter(Class<TObject> TypeOfResponse)
     {
+        // Inicializa objeto que fará a serialização/deserialização
         XStream xstream = new XStream();
-        xstream.registerConverter(new DateConverter());
         
-        xstream.alias("AntiFraudAnalysis", AntiFraudAnalysis.class);
-        xstream.alias("AntiFraudAnalysisHistory", AntiFraudAnalysisHistory.class);
+        // Registra conversores 
+        xstream.registerConverter(new DateConverter());
+        xstream.registerConverter(new IntegerConverter());
+        xstream.registerConverter(new LongConverter());
+        xstream.registerConverter(new FloatConverter());
+        xstream.registerConverter(new DoubleConverter());
+        
+        // Registra mapeamento de nome de classes classes 
+        xstream.alias("AntiFraudAnalysisData", AntiFraudAnalysis.class);
+        xstream.alias("QuerySaleAntiFraudAnalysisHistory", AntiFraudAnalysisHistory.class);
         xstream.alias("AntiFraudAnalysisResult", AntiFraudAnalysisResult.class);
         xstream.alias("BillingAddress", BillingAddress.class);
         xstream.alias("BuyerAddress", BuyerAddress.class);
@@ -119,23 +129,20 @@ public class SerializeUtility<TObject> {
         xstream.alias("BoletoTransactionData", BoletoTransactionData.class);
         xstream.alias("BoletoTransactionOptions", BoletoTransactionOptions.class);
         xstream.alias("BoletoTransactionResult", BoletoTransactionResult.class);
-        xstream.alias("CreditCard", CreditCard.class);
         xstream.alias("CreditCardTransaction", CreditCardTransaction.class);
         xstream.alias("CreditCardTransactionData", CreditCardTransactionData.class);
         xstream.alias("CreditCardTransactionOptions", CreditCardTransactionOptions.class);
         xstream.alias("CreditCardTransactionResult", CreditCardTransactionResult.class);
         xstream.alias("ManageCreditCardTransaction", ManageCreditCardTransaction.class);
         xstream.alias("RetrySaleCreditCardTransaction", RetrySaleCreditCardTransaction.class);
-        xstream.alias("CreditCardData", CreditCardData.class);
         xstream.alias("GetInstantBuyDataResponse", GetInstantBuyDataResponse.class);        
         xstream.alias("Merchant", Merchant.class);
         xstream.alias("Order", Order.class);
         xstream.alias("OrderData", OrderData.class);
         xstream.alias("OrderResult", OrderResult.class);
         xstream.alias("Buyer", Buyer.class);
-        xstream.alias("Person", Person.class);
         xstream.alias("Recurrency", Recurrency.class);
-        xstream.alias("SaleData", SaleData.class);
+        xstream.alias("Sale", SaleData.class);
         xstream.alias("SaleOptions", SaleOptions.class);
         xstream.alias("CreateSaleRequest", CreateSaleRequest.class);
         xstream.alias("CreateSaleResponse", CreateSaleResponse.class);
@@ -144,13 +151,23 @@ public class SerializeUtility<TObject> {
         xstream.alias("QuerySaleResponse", QuerySaleResponse.class);
         xstream.alias("RequestData", RequestData.class);
         xstream.alias("RetrySaleOptions", RetrySaleOptions.class);
-        xstream.alias("RetrySaleRequest", RetrySaleRequest.class);
+        xstream.alias("RetrySaleResquest", RetrySaleRequest.class);
         xstream.alias("RetrySaleResponse", RetrySaleResponse.class);
         xstream.alias("ErrorItem", ErrorItem.class);
         xstream.alias("ErrorReport", ErrorReport.class);
         xstream.alias("ShoppingCartItem", ShoppingCartItem.class);
         xstream.alias("ShoppingCart", ShoppingCart.class);
         
+        // Registra classes conflitantes de acordo com o tipo solicitado para a deserialização
+        if(TypeOfResponse == GetInstantBuyDataResponse.class)
+        {
+            xstream.alias("CreditCard", CreditCardData.class);
+        }
+        else
+        {
+            xstream.alias("CreditCard", CreditCard.class);
+        }
+            
         return xstream;
     }
 }

@@ -3,6 +3,7 @@ package DataContracts.Sale;
 import DataContracts.BaseRequest;
 import DataContracts.CreditCardTransaction.ManageCreditCardTransaction;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,7 +22,7 @@ public final class ManageSaleRequest extends BaseRequest {
     /**
      * Coleções de transdações de cartão de crédito
      */
-    private ArrayList<ManageCreditCardTransaction> CreditCardTransactionCollection;
+    private List<ManageCreditCardTransaction> CreditCardTransactionCollection;
 
     /**
      * Chave do pedido. Utilizada para identificar um pedido no gateway
@@ -32,7 +33,7 @@ public final class ManageSaleRequest extends BaseRequest {
      * Recupera Coleções de transdações de cartão de crédito
      * @return 
      */
-    public ArrayList<ManageCreditCardTransaction> getCreditCardTransactionCollection() {
+    public List<ManageCreditCardTransaction> getCreditCardTransactionCollection() {
         return CreditCardTransactionCollection;
     }
 
@@ -40,7 +41,7 @@ public final class ManageSaleRequest extends BaseRequest {
      * Altera Coleções de transdações de cartão de crédito
      * @param CreditCardTransactionCollection 
      */
-    public void setCreditCardTransactionCollection(ArrayList<ManageCreditCardTransaction> CreditCardTransactionCollection) {
+    public void setCreditCardTransactionCollection(List<ManageCreditCardTransaction> CreditCardTransactionCollection) {
         this.CreditCardTransactionCollection = CreditCardTransactionCollection;
     }
 
