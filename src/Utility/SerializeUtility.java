@@ -8,8 +8,10 @@ import DataContracts.BoletoTransaction.*;
 import DataContracts.CreditCardTransaction.*;
 import DataContracts.InstantBuy.*;
 import DataContracts.Merchant.*;
+import DataContracts.OnlineDebitTransaction.OnlineDebitTransactionNotification;
 import DataContracts.Order.*;
 import DataContracts.Person.*;
+import DataContracts.PostNotification.StatusNotification;
 import DataContracts.Recurrency.*;
 import DataContracts.Sale.*;
 import DataContracts.ShoppingCart.*;
@@ -129,6 +131,7 @@ public class SerializeUtility<TObject> {
         xstream.alias("BoletoTransactionData", BoletoTransactionData.class);
         xstream.alias("BoletoTransactionOptions", BoletoTransactionOptions.class);
         xstream.alias("BoletoTransactionResult", BoletoTransactionResult.class);
+        xstream.alias("CreditCard", CreditCard.class);
         xstream.alias("CreditCardTransaction", CreditCardTransaction.class);
         xstream.alias("CreditCardTransactionData", CreditCardTransactionData.class);
         xstream.alias("CreditCardTransactionOptions", CreditCardTransactionOptions.class);
@@ -157,15 +160,18 @@ public class SerializeUtility<TObject> {
         xstream.alias("ErrorReport", ErrorReport.class);
         xstream.alias("ShoppingCartItem", ShoppingCartItem.class);
         xstream.alias("ShoppingCart", ShoppingCart.class);
+        xstream.alias("StatusNotification", StatusNotification.class); 
         
         // Registra classes conflitantes de acordo com o tipo solicitado para a deserialização
         if(TypeOfResponse == GetInstantBuyDataResponse.class)
         {
             xstream.alias("CreditCard", CreditCardData.class);
         }
-        else
+        if(TypeOfResponse == StatusNotification.class)
         {
-            xstream.alias("CreditCard", CreditCard.class);
+            xstream.alias("CreditCardTransaction", CreditCardTransactionNotification.class); 
+            xstream.alias("BoletoTransaction", BoletoTransactionNotification.class); 
+            xstream.alias("OnlineDebitTransaction", OnlineDebitTransactionNotification.class); 
         }
             
         return xstream;

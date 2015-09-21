@@ -2,8 +2,7 @@ package Client;
 
 import EnumTypes.HttpContentTypeEnum;
 import EnumTypes.PlatformEnvironmentEnum;
-import ResourceClients.CreditCardResource;
-import ResourceClients.SaleResource;
+import ResourceClients.*;
 import java.util.UUID;
 
 /**
@@ -20,6 +19,11 @@ public class GatewayServiceClient {
      * Recursos para cartão de crédito
      */
     private CreditCardResource CreditCard;
+    
+    /**
+     * Recursos para post de notificação
+     */
+    private PostNotificationResource PostNotification;
 
     /**
      * Recupera recurso de venda
@@ -37,6 +41,14 @@ public class GatewayServiceClient {
         return CreditCard;
     }   
 
+    /**
+     * Recupera recurso de post de notificação
+     * @return 
+     */
+    public PostNotificationResource getPostNotification() {
+        return PostNotification;
+    }   
+    
     // CONSTRUTORES DA CLASSE
     
     /**
@@ -50,6 +62,7 @@ public class GatewayServiceClient {
     public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment, HttpContentTypeEnum httpContentType, String hostUri) {
         this.Sale = new SaleResource(merchantKey, environment, httpContentType, hostUri);
         this.CreditCard = new CreditCardResource(merchantKey, environment, httpContentType, hostUri);
+        this.PostNotification = new PostNotificationResource();
     }
     
     /**
