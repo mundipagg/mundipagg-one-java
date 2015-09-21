@@ -80,7 +80,7 @@ public class ParseNotificationXmlTest {
             GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
             
             // Efetua o parse do xml em um objeto de StatusNotification
-            StatusNotification statusNotification = serviceClient.getPostNotification().ParseFromXML(xmlTest);
+            StatusNotification statusNotification = serviceClient.getPostNotification().parseFromXML(xmlTest);
 
             // Testa se conseguiu obter recurso
             assertNotNull(statusNotification);

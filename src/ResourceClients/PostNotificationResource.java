@@ -19,7 +19,7 @@ public class PostNotificationResource {
      * @param xml
      * @return 
      */
-    public StatusNotification ParseFromXML(String xml)
+    public StatusNotification parseFromXML(String xml)
     {
         // Inicia objeto de serialização e deserialização para efetuar parse
         SerializeUtility<StatusNotification> serializerResponse = new SerializeUtility();
