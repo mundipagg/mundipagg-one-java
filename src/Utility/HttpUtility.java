@@ -119,8 +119,9 @@ public class HttpUtility {
      * @param HttpContentType Formato do conteúdo da resposta
      * @param HeaderData Cabeçalho da requisição
      * @return 
+     * @throws java.lang.Exception 
      */
-    private HttpResponse SendHttpWebRequest(String DataToSend, HttpVerbEnum HttpVerb, HttpContentTypeEnum HttpContentType, String ServiceEndpoint, BasicHeader[] HeaderData) throws Exception
+    public HttpResponse SendHttpWebRequest(String DataToSend, HttpVerbEnum HttpVerb, HttpContentTypeEnum HttpContentType, String ServiceEndpoint, BasicHeader[] HeaderData) throws Exception
     {
         // Define codificação
         String encoding = ServiceConstants.CHARSET;
