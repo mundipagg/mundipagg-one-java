@@ -5,7 +5,10 @@ import EnumTypes.HttpVerbEnum;
 import Parsers.TransactionReportParser;
 import Utility.HttpResponse;
 import Utility.HttpUtility;
+import java.io.IOException;
+import java.nio.file.*;
 import java.security.InvalidParameterException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -119,6 +122,45 @@ public class TransactionReportResource {
         TransactionReportFile report = transactionReportParser.parser(transactionReportFile);
         
         return report;
+    }
+    
+    /**
+     * Salva um relatório de transação em arquivo txt no path informado e nome recebido para arquivo
+     * @param transactionReportFile Dados do relatório
+     * @param path Caminho que será salvo o arquivo.   Ex.   C:/Reports/  
+     * @param fileName Nome do arquivo sem a extensão. Ex.   MyReport
+     * @throws java.io.IOException  
+     */
+    public void saveTransactionReportFile(String transactionReportFile, String path, String fileName) throws IOException
+    {
+        // Verifica path
+        if(path == null || path.trim().length() == 0)
+        {
+            throw new InvalidParameterException("Path should be not null.");
+        }
+        
+        // Verifica se possui limitação de diretório ou não
+        if(path.charAt(path.length()-1) != '/')
+        {
+            path += "/";
+        }
+
+        // Define extensão padrão
+        String extension = ".txt";
+        
+        // Verifica nome do arquivo
+        if(fileName == null || fileName.trim().length() == 0)
+        {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            Date currentDate = new Date();
+            fileName = "TransactionReportFile_" + df.format(currentDate);
+        }
+        
+        // Adiciona extensão
+        fileName = fileName + extension;
+        
+        // Tenta salvar
+        Path resultSave = Files.write(Paths.get(path + fileName), transactionReportFile.getBytes(), StandardOpenOption.CREATE);
     }
     
 }

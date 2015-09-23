@@ -174,7 +174,7 @@ public class TransactionReportParser {
      */
     private OnlineDebitTransactionReport parserOnlineDebitTransaction(String[] row) throws ParseException
     {
-        if(row.length != 18)
+        if(row.length != 16)
         {
             throw new ParseException("The expected parameter count for OnlineDebitTransaction parser is 16", row.length);
         }
