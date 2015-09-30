@@ -69,50 +69,39 @@ public class GatewayServiceClient {
      * O Host base que será usado usado para acessar os recuros é o HostUri informado.
      * @param merchantKey
      * @param environment
-     * @param httpContentType
      * @param hostUri 
      */
-    public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment, HttpContentTypeEnum httpContentType, String hostUri) {
-        this.Sale = new SaleResource(merchantKey, environment, httpContentType, hostUri);
-        this.CreditCard = new CreditCardResource(merchantKey, environment, httpContentType, hostUri);
+    public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment, String hostUri) {
+        this.Sale = new SaleResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
+        this.CreditCard = new CreditCardResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
         this.PostNotification = new PostNotificationResource();
         this.TransactionReport = new TransactionReportResource(merchantKey);
     }
     
     /**
-     * Cria cliente para acessar serviços do gateway da MundiPagg One usando ambiente de Produção e tipo de conteúdo Json
+     * Cria cliente para acessar serviços do gateway da MundiPagg One usando ambiente de Produção
      * @param merchantKey 
      */
     public GatewayServiceClient(UUID merchantKey) { 
-        this(merchantKey, PlatformEnvironmentEnum.Production, HttpContentTypeEnum.Json, ""); 
+        this(merchantKey, PlatformEnvironmentEnum.Production, ""); 
     }
     
     /**
-     * Cria cliente para acessar serviços do gateway da MundiPagg One usando ambiente de Produção e tipo de conteúdo Json
+     * Cria cliente para acessar serviços do gateway da MundiPagg One 
      * O Host base que será usado usado para acessar os recuros é o HostUri informado.
      * @param merchantKey
      * @param hostUri 
      */
     public GatewayServiceClient(UUID merchantKey, String hostUri) { 
-        this(merchantKey, PlatformEnvironmentEnum.Production, HttpContentTypeEnum.Json, hostUri);
-    }
-
-    /**
-     * Cria cliente para acessar serviços do gateway da MundiPagg One usando tipo de conteúdo Json
-     * @param merchantKey
-     * @param environment 
-     */
-    public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment) { 
-        this(merchantKey, environment, HttpContentTypeEnum.Json, "");
+        this(merchantKey, PlatformEnvironmentEnum.Production, hostUri);
     }
 
     /**
      * Cria cliente para acessar serviços do gateway da MundiPagg One
      * @param merchantKey
-     * @param environment
-     * @param httpContentType 
+     * @param environment 
      */
-    public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment, HttpContentTypeEnum httpContentType) { 
-        this(merchantKey, environment, httpContentType, null);
-    }   
+    public GatewayServiceClient(UUID merchantKey, PlatformEnvironmentEnum environment) { 
+        this(merchantKey, environment, "");
+    }
 }

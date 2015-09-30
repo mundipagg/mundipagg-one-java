@@ -14,14 +14,49 @@ import Utility.*;
 import java.util.ArrayList;
 import java.util.UUID;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
 import static org.junit.Assert.*;
 
 /**
  * Testes do SDK simulando integração usando Json
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IntegrationJsonTest {
     
-    public IntegrationJsonTest() {}
+    /**
+     * MerchantKey para os testes
+     */
+    private final UUID MerchantKey;
+    
+    /**
+     * MerchantKey para os testes
+     */
+    private final PlatformEnvironmentEnum Environment;
+    
+    /**
+     * BuyerKey criado nos testes
+     */
+    private static UUID BuyerKey;
+    
+    /**
+     * InstantBuyKey criado nos testes
+     */
+    private static UUID InstantBuyKey;
+    
+    /**
+     * BuyerKey criado nos testes
+     */
+    private static UUID OrderKey;
+    
+    /**
+     * Construtor
+     */
+    public IntegrationJsonTest() {
+        // Define propriedades para o teste de acordo com a classe de configuração dos testes
+        this.MerchantKey = TestsConfiguration.MerchantKey;
+        this.Environment = TestsConfiguration.Environment;
+    }
 
     ///////////////////////////
     // SALE RESOURCES TESTS  //
@@ -31,11 +66,11 @@ public class IntegrationJsonTest {
      * Testa a criação de uma venda no ambiente de homologação / JSON
      */    
     @Test
-    public void CreateSale() {
+    public void TestA_CreateSale() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         // Cria pedido 
         Order order = new Order();
@@ -103,7 +138,7 @@ public class IntegrationJsonTest {
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
@@ -121,6 +156,10 @@ public class IntegrationJsonTest {
             assertNotNull(createSaleRawRequest);
             assertNotNull(createSaleRawResponse);
             assertEquals(createSaleRequestResult, createSaleRequest);
+            
+            IntegrationJsonTest.BuyerKey = createSaleResponseResult.getBuyerKey();
+            IntegrationJsonTest.OrderKey = createSaleResponseResult.getOrderResult().getOrderKey();
+            IntegrationJsonTest.InstantBuyKey = createSaleResponseResult.getCreditCardTransactionResultCollection().get(0).getCreditCard().getInstantBuyKey();
         }
         catch (Exception ex) { assertTrue(false); }
     }
@@ -129,11 +168,11 @@ public class IntegrationJsonTest {
      * Testa a criação de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void CreateSaleCreditCard() {
+    public void TestB_CreateSaleCreditCard() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
      
         // Cria um cartão de crédito e define endereço de cobrança
         CreditCard creditCard = new CreditCard();
@@ -161,7 +200,7 @@ public class IntegrationJsonTest {
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Submete a transação e retorna a resposta do gateway
             HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
@@ -188,11 +227,11 @@ public class IntegrationJsonTest {
      * Testa a criação de uma transação de boleto no ambiente de homologação / JSON
      */    
     @Test
-    public void CreateSaleBoleto() {
+    public void TestC_CreateSaleBoleto() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
             
         // Cria a transação de boleto
         BoletoTransaction boletoTransaction = new BoletoTransaction();
@@ -214,7 +253,7 @@ public class IntegrationJsonTest {
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Submete a transação e retorna a resposta do gateway
             HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
@@ -240,18 +279,18 @@ public class IntegrationJsonTest {
      * Testa o gerenciamento (captura) de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void ManageSale_Capture() {
+    public void TestD_ManageSale_Capture() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do pedido
-            UUID orderKey = UUID.fromString("5b8b6f0d-398e-4f7a-a5b2-0b5088e2c8ea");
+            UUID orderKey = IntegrationJsonTest.OrderKey;
             
             // Submete a requisição e retorna a resposta do gateway
             HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
@@ -277,18 +316,18 @@ public class IntegrationJsonTest {
      * Testa o gerenciamento (cancelamento) de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void ManageSale_Cancel() {
+    public void TestE_ManageSale_Cancel() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do pedido
-            UUID orderKey = UUID.fromString("5b8b6f0d-398e-4f7a-a5b2-0b5088e2c8ea");
+            UUID orderKey = IntegrationJsonTest.OrderKey;
             
             // Submete a requisição e retorna a resposta do gateway
             HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
@@ -314,18 +353,18 @@ public class IntegrationJsonTest {
      * Testa o gerenciamento (autorização) de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void ManageSale_Authorize() {
+    public void TestF_ManageSale_Authorize() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do pedido
-            UUID orderKey = UUID.fromString("5b8b6f0d-398e-4f7a-a5b2-0b5088e2c8ea");
+            UUID orderKey = IntegrationJsonTest.OrderKey;
             
             // Submete a requisição e retorna a resposta do gateway
             HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
@@ -351,18 +390,18 @@ public class IntegrationJsonTest {
      * Testa a retentativa de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void RetrySale() {
+    public void TestG_RetrySale() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do pedido
-            UUID orderKey = UUID.fromString("5b8b6f0d-398e-4f7a-a5b2-0b5088e2c8ea");
+            UUID orderKey = IntegrationJsonTest.OrderKey;
             
             // Submete a requisição e retorna a resposta do gateway
             HttpResponseGenerics<RetrySaleResponse, RetrySaleRequest> httpResponse = 
@@ -388,18 +427,18 @@ public class IntegrationJsonTest {
      * Testa a consulta de um pedido ambiente de homologação / JSON
      */    
     @Test
-    public void QuerySale() {
+    public void TestH_QuerySale() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
         
         try {
             // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do pedido
-            UUID orderKey = UUID.fromString("5b8b6f0d-398e-4f7a-a5b2-0b5088e2c8ea");
+            UUID orderKey = IntegrationJsonTest.OrderKey;
             
             // Submete a requisição e retorna a resposta do gateway
             HttpResponseGenericResponse<QuerySaleResponse> httpResponse = 
@@ -425,18 +464,18 @@ public class IntegrationJsonTest {
      * Testa a obtenção dos dados do InstantBuy / JSON
      */    
     @Test
-    public void GetInstantBuyData() {
+    public void TestI_GetInstantBuyData() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
                 
         try {
             // Cria o cliente que vai enviar a requisição
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do InstantBuy
-            UUID instantBuyKey = UUID.fromString("bfcd798a-6431-47b1-9f6e-57b7e25d553f");
+            UUID instantBuyKey = IntegrationJsonTest.InstantBuyKey;
             
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse = 
@@ -458,18 +497,18 @@ public class IntegrationJsonTest {
      * Testa a obtenção dos dados do InstantBuy pela chave do comprador / JSON
      */    
     @Test
-    public void GetInstantBuyDataWithBuyerKey() {
+    public void TestJ_GetInstantBuyDataWithBuyerKey() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
                 
         try {
             // Cria o cliente que vai enviar a requisição
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, HttpContentTypeEnum.Json);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
             
             // Define a chave do InstantBuy
-            UUID buyerKey = UUID.fromString("ec2103cb-c0d0-4fa6-bc22-2a9ec25b3740");
+            UUID buyerKey = IntegrationJsonTest.BuyerKey;
             
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse = 

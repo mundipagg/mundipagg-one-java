@@ -24,8 +24,8 @@ public class ParseNotificationXmlTest {
     @Test
     public void ParseFromXML() {
         
-        // Define loja
-        UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
+        // Define loja para inicializar o client
+        UUID merchantKey = TestsConfiguration.MerchantKey; // Chave da Loja - MerchantKey
         
         // Cria exemplo de XML de notificação
         String xmlTest = "<StatusNotification xmlns=\"http://schemas.datacontract.org/2004/07/MundiPagg.NotificationService.DataContract\"\n" +

@@ -56,6 +56,11 @@ public class CreditCardTransactionData {
     private Long CapturedAmountInCents;
     
     /**
+     * Data da Captura
+     */
+    private Date CapturedDate;
+    
+    /**
      * Data de criação da transação no gateway
      */
     private Date CreateDate;
@@ -269,6 +274,22 @@ public class CreditCardTransactionData {
         this.CapturedAmountInCents = CapturedAmountInCents;
     }
 
+    /**
+     * Recupera Data da captura
+     * @return 
+     */
+    public Date getCapturedDate() {
+        return CapturedDate;
+    }
+
+    /**
+     * Altera Data da captura
+     * @param CapturedDate 
+     */
+    public void setCapturedDate(Date CapturedDate) {
+        this.CapturedDate = CapturedDate;
+    }
+    
     /**
      * Recupera valor estornado da transação em centavos
      * @return 

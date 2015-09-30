@@ -3,7 +3,6 @@ package MundiPagg.One;
 import Client.GatewayServiceClient;
 import DataContracts.TransactionReport.*;
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class TransactionReportTest {
     @Test
     public void getTransactionReportFile()  {
          // Define loja
-        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5"); // Chave da Loja - MerchantKey
+        UUID merchantKey = TestsConfiguration.MerchantKey; // Chave da Loja - MerchantKey
         
         try {
         
@@ -54,7 +53,7 @@ public class TransactionReportTest {
     @Test
     public void parserTransactionReportFile()  {
          // Define loja
-        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5"); // Chave da Loja - MerchantKey
+        UUID merchantKey = TestsConfiguration.MerchantKey; // Chave da Loja - MerchantKey
         
         try {
         
@@ -87,7 +86,7 @@ public class TransactionReportTest {
     public void saveTransactionReportFile() {
         
         // Define loja
-        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5"); // Chave da Loja - MerchantKey
+        UUID merchantKey = TestsConfiguration.MerchantKey; // Chave da Loja - MerchantKey
         
         try {
             // Cria data para obtenção do relatório

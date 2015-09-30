@@ -52,6 +52,11 @@ public class CreditCardTransactionResult {
     private Long CapturedAmountInCents;
     
     /**
+     * Data da Captura
+     */
+    private Date CapturedDate;
+    
+    /**
      * Dados do cartão de crédito
      */
     private CreditCardData CreditCard;
@@ -329,6 +334,22 @@ public class CreditCardTransactionResult {
         this.VoidedAmountInCents = VoidedAmountInCents;
     }
 
+    /**
+     * Recupera Data da captura
+     * @return 
+     */
+    public Date getCapturedDate() {
+        return CapturedDate;
+    }
+
+    /**
+     * Altera Data da captura
+     * @param CapturedDate 
+     */
+    public void setCapturedDate(Date CapturedDate) {
+        this.CapturedDate = CapturedDate;
+    }
+    
     /**
      * Recupera Data da recorrência (poderá ser futura)
      * @return 
