@@ -27,7 +27,7 @@ Após inicializar o cliente, como no exemplo abaixo:
 ```java
 
 // Define loja e ambiente de integração
-UUID merchantKey = UUID.fromString("50CB81FB-7164-4E1D-94F3-9B1E6E12C73D"); // Chave da Loja - MerchantKey
+UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
 PlatformEnvironmentEnum environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Staging
 
 // Cria o cliente que vai submeter as requisições
@@ -44,6 +44,8 @@ Com o objeto instanciado é possível fazer operações nesse formato:
 // CreateSaleRequest é o tipo do objeto de requisição passado
 // serviceClient.getSale() contém operações de venda
 // serviceClient.getCreditCard() contém operações de InstantBuy
+// serviceClient.getPostNotification() contém operações de PostNotification
+// serviceClient.getTransactionReport() contém operações de TransactionReportFile
 HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = serviceClient.getSale().Create(createSaleRequest);
 
 ```
