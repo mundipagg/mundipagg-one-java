@@ -139,14 +139,248 @@ try {
      // Autoriza a transação e retorna a resposta do gateway
      HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
              serviceClient.getSale().Create(createSaleRequest);
+             
+ }
+ catch (Exception ex) { }
+```
 
-     // Obtem objeto de requisição/resposta montado
-     CreateSaleRequest createSaleRequestResult = httpResponse.getRequest();
-     CreateSaleResponse createSaleResponseResult = httpResponse.getResponse();
+### Create CreditCardTransaction
+
+```java
+
+try {
+     // Define loja
+     UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+    
+     // Cria um cartão de crédito e define endereço de cobrança
+     CreditCard creditCard = new CreditCard();
+     creditCard.setCreditCardNumber("4111111111111111");
+     creditCard.setCreditCardBrand(CreditCardBrandEnum.Visa);
+     creditCard.setExpMonth(10);
+     creditCard.setExpYear(2018);
+     creditCard.setSecurityCode("123");
+     creditCard.setHolderName("Comprador da S");
+     creditCard.setBillingAddress(new BillingAddress());
+     creditCard.getBillingAddress().setZipCode("23000-123");
+     creditCard.getBillingAddress().setCountry(CountryEnum.Brazil);
+     creditCard.getBillingAddress().setCity("Rio de Janeiro");
+     creditCard.getBillingAddress().setState("RJ");
+     creditCard.getBillingAddress().setDistrict("Centro");
+     creditCard.getBillingAddress().setStreet("Rua da Quitanda");
+     creditCard.getBillingAddress().setNumber("199");
      
-     // Obtem objeto de requisição/resposta em texto no formato definido no cliente
-     String createSaleRawRequest = httpResponse.getRawRequest();
-     String createSaleRawResponse = httpResponse.getRawResponse();
+     // Cria a transação de cartão de crédito e define cartão criado anteriormente
+     CreditCardTransaction creditCardTransaction = new CreditCardTransaction();
+     creditCardTransaction.setAmountInCents(92000L);
+     creditCardTransaction.setOptions(new CreditCardTransactionOptions());
+     creditCardTransaction.getOptions().setPaymentMethodCode(1); // Simulator       
+     creditCardTransaction.setCreditCard(creditCard);
+ 
+     // Cria o cliente que vai enviar a transação
+     GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+     
+     // Submete a transação e retorna a resposta do gateway
+     HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
+             serviceClient.getSale().CreateCreditCard(creditCardTransaction);
+             
+ }
+ catch (Exception ex) { }
+```
+
+### Create BoletoTransaction
+
+```java
+
+try {
+     // Define loja
+     UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+    
+     // Cria a transação de boleto
+     BoletoTransaction boletoTransaction = new BoletoTransaction();
+     boletoTransaction.setAmountInCents(92000L);
+     boletoTransaction.setOptions(new BoletoTransactionOptions());
+     boletoTransaction.getOptions().setDaysToAddInBoletoExpirationDate(7);
+     boletoTransaction.getOptions().setCurrencyIso(CurrencyIsoEnum.BRL);
+     boletoTransaction.setBankNumber("347");
+     boletoTransaction.setDocumentNumber("DOC123456");
+     boletoTransaction.setInstructions("Não aceitar após o vencimento.");
+     boletoTransaction.setBillingAddress(new BillingAddress());
+     boletoTransaction.getBillingAddress().setZipCode("23000-123");
+     boletoTransaction.getBillingAddress().setCountry(CountryEnum.Brazil);
+     boletoTransaction.getBillingAddress().setCity("Rio de Janeiro");
+     boletoTransaction.getBillingAddress().setState("RJ");
+     boletoTransaction.getBillingAddress().setDistrict("Centro");
+     boletoTransaction.getBillingAddress().setStreet("Rua da Quitanda");
+     boletoTransaction.getBillingAddress().setNumber("199");
+ 
+     // Cria o cliente que vai enviar a transação
+     GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+     
+     // Submete a transação e retorna a resposta do gateway
+     HttpResponseGenerics<CreateSaleResponse, CreateSaleRequest> httpResponse = 
+                    serviceClient.getSale().CreateBoleto(boletoTransaction);
+             
+ }
+ catch (Exception ex) { }
+```
+
+### Cancel 
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do pedido que será cancelado
+      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
+      
+      // Submete a requisição de cancelamento
+      HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
+                    serviceClient.getSale().Manage(ManageOperationEnum.Cancel, orderKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Capture
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do pedido que será capturado
+      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
+      
+      // Submete a requisição de captura
+      HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
+                    serviceClient.getSale().Manage(ManageOperationEnum.Capture, orderKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Authorize
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do pedido que será autorizado
+      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
+      
+      // Submete a requisição de autorização
+      HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
+                    serviceClient.getSale().Manage(ManageOperationEnum.Authorize, orderKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Retry
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do pedido que será retentado
+      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
+      
+      // Submete a requisição de retentativa
+      HttpResponseGenerics<RetrySaleResponse, RetrySaleRequest> httpResponse = 
+                    serviceClient.getSale().Retry(orderKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Query
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do pedido que será consultado
+      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
+      
+      // Submete a requisição de consulta
+      HttpResponseGenericResponse<QuerySaleResponse> httpResponse = 
+                    serviceClient.getSale().QueryOrder(orderKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Get InstantBuy
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do InstantBuy
+      UUID instantBuyKey = UUID.fromString("chave do instantbuy"); // Chave da InstantBuy
+      
+      // Obtem dados
+      HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse = 
+              serviceClient.getCreditCard().GetInstantBuyData(instantBuyKey);
+      
+ }
+ catch (Exception ex) { }
+```
+
+### Get InstantBuy With BuyerKey
+
+```java
+
+try {
+
+      // Define loja 
+      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
+
+      // Cria o cliente que vai efetuar a operação
+      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+      // Define a chave do comprador
+      UUID buyerKey = UUID.fromString("chave do comprador"); // Chave do comprador
+      
+      // Obtem dados
+      HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse = 
+             serviceClient.getCreditCard().GetInstantBuyDataWithBuyerKey(buyerKey);
+
  }
  catch (Exception ex) { }
 ```
@@ -214,7 +448,7 @@ try {
  catch (Exception ex) { }
 ```
 
-### Parse Post Notification
+### Parse PostNotification
 
 ```java
 
