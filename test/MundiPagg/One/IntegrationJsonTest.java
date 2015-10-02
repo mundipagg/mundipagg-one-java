@@ -348,49 +348,12 @@ public class IntegrationJsonTest {
         }
         catch (Exception ex) { assertTrue(false); }
     }
-    
-    /**
-     * Testa o gerenciamento (autorização) de uma transação de cartão de crédito no ambiente de homologação / JSON
-     */    
-    @Test
-    public void TestF_ManageSale_Authorize() {
         
-        // Define loja e ambiente de integração
-        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
-        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
-        
-        try {
-            // Cria o cliente que vai enviar a transação
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
-            
-            // Define a chave do pedido
-            UUID orderKey = IntegrationJsonTest.OrderKey;
-            
-            // Submete a requisição e retorna a resposta do gateway
-            HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
-                    serviceClient.getSale().Manage(ManageOperationEnum.Authorize, orderKey);
-
-            // Obtem objeto de resposta montado
-            ManageSaleRequest manageSaleRequestResult = httpResponse.getRequest();
-            ManageSaleResponse manageSaleResponseResult = httpResponse.getResponse();
-            String manageSaleRawRequest = httpResponse.getRawRequest();
-            String manageSaleRawResponse = httpResponse.getRawResponse();
-            
-            // Testa se conseguiu obter recurso
-            assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200); 
-            assertNotNull(manageSaleRequestResult.getOrderKey());
-            assertNotNull(manageSaleResponseResult.getCreditCardTransactionResultCollection());
-            assertNotNull(manageSaleRawRequest);
-            assertNotNull(manageSaleRawResponse);
-        }
-        catch (Exception ex) { assertTrue(false); }
-    }
-    
     /**
      * Testa a retentativa de uma transação de cartão de crédito no ambiente de homologação / JSON
      */    
     @Test
-    public void TestG_RetrySale() {
+    public void TestF_RetrySale() {
         
         // Define loja e ambiente de integração
         UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
@@ -427,7 +390,7 @@ public class IntegrationJsonTest {
      * Testa a consulta de um pedido ambiente de homologação / JSON
      */    
     @Test
-    public void TestH_QuerySale() {
+    public void TestG_QuerySale() {
         
         // Define loja e ambiente de integração
         UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
@@ -464,7 +427,7 @@ public class IntegrationJsonTest {
      * Testa a obtenção dos dados do InstantBuy / JSON
      */    
     @Test
-    public void TestI_GetInstantBuyData() {
+    public void TestH_GetInstantBuyData() {
         
         // Define loja e ambiente de integração
         UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
@@ -497,7 +460,7 @@ public class IntegrationJsonTest {
      * Testa a obtenção dos dados do InstantBuy pela chave do comprador / JSON
      */    
     @Test
-    public void TestJ_GetInstantBuyDataWithBuyerKey() {
+    public void TestI_GetInstantBuyDataWithBuyerKey() {
         
         // Define loja e ambiente de integração
         UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey

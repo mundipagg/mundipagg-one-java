@@ -81,7 +81,7 @@ public class TransactionReportParser {
     {
         if(row.length != 4)
         {
-            throw new ParseException("The expected parameter count for Header parser is 5", row.length);
+            throw new ParseException("The expected parameter count for Header parser is 4", row.length);
         }
         
         HeaderReport header = new HeaderReport();
@@ -159,11 +159,11 @@ public class TransactionReportParser {
         transaction.setAgency(row[10]);
         transaction.setAccount(row[11]);
         transaction.setBarcode(row[12]);
-        transaction.setExpirationDate(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(row[13]));
+        transaction.setExpirationDate(new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[13]));
         transaction.setAmountInCents(Long.valueOf(row[14]));
         transaction.setAmountPaidInCents( (row[15].trim().length() > 0) ? Long.valueOf(row[15]) : 0L );
-        transaction.setPaymentDate((row[16].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(row[16]) : null );
-        transaction.setCreditDate((row[17].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(row[17]) : null );
+        transaction.setPaymentDate((row[16].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[16]) : null );
+        transaction.setCreditDate((row[17].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[17]) : null );
         return transaction;
     }
     
@@ -190,7 +190,7 @@ public class TransactionReportParser {
         transaction.setStatus(OnlineDebitTransactionStatusEnum.valueOf(row[8]));
         transaction.setAmountInCents(Long.valueOf(row[9]));
         transaction.setAmountPaidInCents( (row[10].trim().length() > 0) ? Long.valueOf(row[10]) : 0L );
-        transaction.setPaymentDate((row[11].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(row[11]) : null );
+        transaction.setPaymentDate((row[11].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(row[11]) : null );
         transaction.setBankReturnCode(row[12]);
         transaction.setBankPaymentDate(row[13]);
         transaction.setSignature(row[14]);
