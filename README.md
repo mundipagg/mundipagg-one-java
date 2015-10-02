@@ -14,7 +14,7 @@ Os recursos básicos oferecidos pelo SDK Mundi One em Java no seu projeto são:
 
 ### Cliente de acesso aos recursos
 
-```java
+```javaA
 import MundiPagg.Client.GatewayServiceClient;
 ```
 
@@ -267,29 +267,6 @@ try {
       // Submete a requisição de captura
       HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
                     serviceClient.getSale().Manage(ManageOperationEnum.Capture, orderKey);
-      
- }
- catch (Exception ex) { }
-```
-
-### Authorize
-
-```java
-
-try {
-
-      // Define loja 
-      UUID merchantKey = UUID.fromString("sua merchant key"); // Chave da Loja - MerchantKey
-
-      // Cria o cliente que vai efetuar a operação
-      GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
-
-      // Define a chave do pedido que será autorizado
-      UUID instantBuyKey = UUID.fromString("chave do pedido"); // Chave do pedido
-      
-      // Submete a requisição de autorização
-      HttpResponseGenerics<ManageSaleResponse, ManageSaleRequest> httpResponse = 
-                    serviceClient.getSale().Manage(ManageOperationEnum.Authorize, orderKey);
       
  }
  catch (Exception ex) { }
