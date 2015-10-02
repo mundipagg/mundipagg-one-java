@@ -11,7 +11,7 @@ public class TestsConfiguration {
     /**
      * Chave da loja
      */
-    public static UUID MerchantKey = UUID.fromString("41be3484-9cd4-4332-98b1-145daebe7ccb"); // Define merchantKey para os testes
+    public static UUID MerchantKey = UUID.fromString("Sua merchant key aqui"); // Define merchantKey para os testes
     
     /**
      * Ambiente de integração
