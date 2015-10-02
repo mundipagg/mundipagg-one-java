@@ -81,7 +81,7 @@ public class TransactionReportParser {
     {
         if(row.length != 4)
         {
-            throw new ParseException("The expected parameter count for Header parser is 5", row.length);
+            throw new ParseException("The expected parameter count for Header parser is 4", row.length);
         }
         
         HeaderReport header = new HeaderReport();
