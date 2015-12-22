@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Após efetuar o download do projeto (Criado a partir da IDE *NetBeans*), junto com o código fonte, pode-se localizar na pasta ***library*** um arquivo chamado ***MundiPaggg.jar***, referente a este SDK já compilado com as suas dependências (*Gson 2.3.1*, *XStream 1.4.8* e *HttpClient 4.5*). 
+Após efetuar o download do projeto (Criado a partir da IDE *NetBeans*), junto com o código fonte, pode-se localizar na pasta ***library*** um arquivo chamado ***MundiPagg.jar***, referente a este SDK já compilado com as suas dependências (*Gson 2.3.1*, *XStream 1.4.8* e *HttpClient 4.5*). 
 
 Adicione uma referência deste arquivo *Jar* em seu projeto, e a SDK estará pronta para ser utilizada.
 
