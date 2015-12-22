@@ -75,15 +75,15 @@ public class GatewayServiceClient {
         this.Sale = new SaleResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
         this.CreditCard = new CreditCardResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
         this.PostNotification = new PostNotificationResource();
-        this.TransactionReport = new TransactionReportResource(merchantKey);
+        this.TransactionReport = new TransactionReportResource(merchantKey, environment, hostUri);
     }
     
     /**
-     * Cria cliente para acessar serviços do gateway da MundiPagg One usando ambiente de Produção
+     * Cria cliente para acessar serviços do gateway da MundiPagg One usando ambiente de Sandbox
      * @param merchantKey 
      */
     public GatewayServiceClient(UUID merchantKey) { 
-        this(merchantKey, PlatformEnvironmentEnum.Production, ""); 
+        this(merchantKey, PlatformEnvironmentEnum.Sandbox, ""); 
     }
     
     /**
@@ -93,7 +93,7 @@ public class GatewayServiceClient {
      * @param hostUri 
      */
     public GatewayServiceClient(UUID merchantKey, String hostUri) { 
-        this(merchantKey, PlatformEnvironmentEnum.Production, hostUri);
+        this(merchantKey, PlatformEnvironmentEnum.Sandbox, hostUri);
     }
 
     /**

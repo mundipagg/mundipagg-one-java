@@ -1,7 +1,9 @@
 package ResourceClients;
 import DataContracts.TransactionReport.TransactionReportFile;
+import EnumTypes.ApiUrlEnum;
 import EnumTypes.HttpContentTypeEnum;
 import EnumTypes.HttpVerbEnum;
+import EnumTypes.PlatformEnvironmentEnum;
 import Parsers.TransactionReportParser;
 import Utility.HttpResponse;
 import Utility.HttpUtility;
@@ -23,10 +25,39 @@ public class TransactionReportResource {
     /**
      * Construtor da Classe
      * @param merchantKey
+     * @param environment
+     * @param hostUri
      */
-    public TransactionReportResource(UUID merchantKey)
+    public TransactionReportResource(UUID merchantKey, PlatformEnvironmentEnum environment, String hostUri)
     {
         this.MerchantKey = merchantKey;
+        this.Environment = environment;
+        this.HostUri = hostUri;
+        this.HttpUtility = new HttpUtility();
+    }
+    
+    /**
+     * Construtor da Classe
+     * @param merchantKey
+     * @param environment
+     */
+    public TransactionReportResource(UUID merchantKey, PlatformEnvironmentEnum environment)
+    {
+        this.MerchantKey = merchantKey;
+        this.Environment = environment;
+        this.HostUri = "";
+        this.HttpUtility = new HttpUtility();
+    }
+    
+    /**
+     * Construtor da Classe
+     * @param merchantKey
+     * @param hostUri
+     */
+    public TransactionReportResource(UUID merchantKey, String hostUri)
+    {
+        this.MerchantKey = merchantKey;
+        this.HostUri = hostUri;
         this.HttpUtility = new HttpUtility();
     }
     
@@ -34,6 +65,16 @@ public class TransactionReportResource {
      * Chave da Loja. Utilizada para identificar a loja no gateway.
      */
     private UUID MerchantKey;
+    
+    /**
+     * Ambiente de Integração
+     */
+    private PlatformEnvironmentEnum Environment;
+    
+    /**
+     * Ambiente de Integração
+     */
+    private String HostUri;
     
     /**
      * Utilitário de requisições HTTP
@@ -61,7 +102,19 @@ public class TransactionReportResource {
      * @return 
      */
     private String getServiceUri() {
-        return "https://api.mundipaggone.com/TransactionReportFile";
+        if(this.HostUri == null || this.HostUri.trim().equals(""))
+        {
+            switch (this.Environment) {
+                case Production:
+                    return ApiUrlEnum.TRANSACTION_REPORT_FILE_PRODUCTION;
+                case Sandbox:
+                    return ApiUrlEnum.TRANSACTION_REPORT_FILE_SANDBOX;
+                default:
+                    return null;
+            }
+        }
+        else
+            return this.HostUri;
     }
     
     /**

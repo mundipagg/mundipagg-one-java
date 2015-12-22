@@ -11,10 +11,10 @@ public class TestsConfiguration {
     /**
      * Chave da loja
      */
-    public static UUID MerchantKey = UUID.fromString("Sua merchant key aqui"); // Define merchantKey para os testes
+    public static UUID MerchantKey = UUID.fromString("85328786-8BA6-420F-9948-5352F5A183EB"); // Define merchantKey para os testes
     
     /**
      * Ambiente de integração
      */
-    public static PlatformEnvironmentEnum Environment = PlatformEnvironmentEnum.Production; // Ambiente de Staging
+    public static PlatformEnvironmentEnum Environment = PlatformEnvironmentEnum.Sandbox; // Ambiente de Sandbox
 }

@@ -32,7 +32,7 @@ public class TransactionReportTest {
         try {
         
             // Cria data para obtenção do relatório
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("17/09/2015");          
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("19/09/2015");          
         
             // Cria o cliente que vai efetuar a requisição
             GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
@@ -58,7 +58,7 @@ public class TransactionReportTest {
         try {
         
             // Cria data para obtenção do relatório
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("21/03/2015");       
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("19/09/2015");       
         
             // Cria o cliente que vai efetuar a requisição
             GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
@@ -90,7 +90,7 @@ public class TransactionReportTest {
         
         try {
             // Cria data para obtenção do relatório
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("17/09/2015");    
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("19/09/2015");    
         
             // Define path que será salvo
             String path = System.getProperty("user.dir") + "\\dist";

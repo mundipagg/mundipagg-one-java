@@ -1,5 +1,6 @@
 package ResourceClients;
 
+import EnumTypes.ApiUrlEnum;
 import EnumTypes.HttpContentTypeEnum;
 import EnumTypes.PlatformEnvironmentEnum;
 import Utility.HttpUtility;
@@ -78,9 +79,9 @@ public abstract class BaseResource {
     private String GetServiceUri(PlatformEnvironmentEnum platformEnvironment) {
         switch (platformEnvironment) {
             case Production:
-                return "https://transactionv2.mundipaggone.com";
+                return ApiUrlEnum.GATEWAY_PRODUCTION;
             case Sandbox:
-                return "https://stagingv2.mundipaggone.com";
+                return ApiUrlEnum.GATEWAY_SANDBOX;
             default:
                 return null;
         }

@@ -159,11 +159,11 @@ public class TransactionReportParser {
         transaction.setAgency(row[10]);
         transaction.setAccount(row[11]);
         transaction.setBarcode(row[12]);
-        transaction.setExpirationDate(new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[13]));
+        transaction.setExpirationDate(new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(row[13]));
         transaction.setAmountInCents(Long.valueOf(row[14]));
         transaction.setAmountPaidInCents( (row[15].trim().length() > 0) ? Long.valueOf(row[15]) : 0L );
-        transaction.setPaymentDate((row[16].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[16]) : null );
-        transaction.setCreditDate((row[17].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy  hh:mm:ss a").parse(row[17]) : null );
+        transaction.setPaymentDate((row[16].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(row[16]) : null );
+        transaction.setCreditDate((row[17].trim().length() > 0) ? new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a").parse(row[17]) : null );
         return transaction;
     }
     
