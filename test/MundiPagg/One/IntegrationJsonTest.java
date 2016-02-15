@@ -554,4 +554,31 @@ public class IntegrationJsonTest {
             assertTrue(false); 
         }
     }
+    
+    @Test
+    public void TestK_GetBuyer() {
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
+        PlatformEnvironmentEnum environment = this.Environment;
+        
+        try {
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+            
+            UUID buyerKey = IntegrationJsonTest.BuyerKey;
+            
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenericResponse<BuyerResponse> httpResponse = 
+                    serviceClient.getBuyer().GetBuyer(buyerKey);
+
+            // Obtem objeto de resposta montado
+            String getRawResponse = httpResponse.getRawResponse();
+                    
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200); 
+        }
+        catch (Exception ex) { 
+            ex.getMessage();
+            assertTrue(false); 
+        }
+    }
 }
