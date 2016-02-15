@@ -2,6 +2,7 @@ package MundiPagg.One;
 
 import Client.GatewayServiceClient;
 import DataContracts.Address.*;
+import DataContracts.BaseResponse;
 import DataContracts.BoletoTransaction.*;
 import DataContracts.CreditCardTransaction.*;
 import DataContracts.InstantBuy.*;
@@ -11,6 +12,7 @@ import DataContracts.Sale.*;
 import DataContracts.ShoppingCart.*;
 import EnumTypes.*;
 import Utility.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 import org.junit.Test;
@@ -487,5 +489,69 @@ public class IntegrationJsonTest {
             assertTrue(getInstantBuyDataResponse.getCreditCardDataCount() > 0);
         }
         catch (Exception ex) { assertTrue(false); }
+    }
+    
+    ///////////////////////////
+    // BUYER RESOURCE TESTS  //
+    ///////////////////////////
+    
+    @Test
+    public void TestJ_CreateBuyer() {
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
+        PlatformEnvironmentEnum environment = this.Environment;
+        
+        try {
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+            
+            // Monta objeto Address
+            BuyerAddress buyerAddress = new BuyerAddress();
+            buyerAddress.setAddressType(AddressTypeEnum.Comercial);
+            buyerAddress.setCity("Rio de Janeiro");
+            buyerAddress.setComplement("Hue br");
+            buyerAddress.setCountry(CountryEnum.Brazil);
+            buyerAddress.setDistrict("Tijuca");
+            buyerAddress.setNumber("123");
+            buyerAddress.setState("RJ");
+            buyerAddress.setStreet("Ruezis do Padris");
+            buyerAddress.setZipCode("20270230");
+            
+            // Define a chave do InstantBuy
+            BuyerRequest buyer = new BuyerRequest();
+            buyer.setAddressCollection(new ArrayList<>());
+            buyer.getAddressCollection().add(buyerAddress);
+            buyer.setBirthdate(Date.valueOf("1994-9-26"));
+            buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
+            buyer.setBuyerReference("Javanês");
+            buyer.setCreateDateInMerchant(Date.valueOf("2015-12-20"));
+            buyer.setDocumentNumber("12345678901");
+            buyer.setDocumentType(DocumentTypeEnum.CPF);
+            buyer.setEmail("is_no_good@java.com");
+            buyer.setEmailType(EmailTypeEnum.Comercial);
+            buyer.setFacebookId("some.id");
+            buyer.setGender(GenderEnum.M);
+            buyer.setHomePhone("21954325678");
+            buyer.setIpAddress("192.168.1.1");
+            buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
+            buyer.setMobilePhone("21555554556");
+            buyer.setName("Dot Net");
+            buyer.setPersonType(PersonTypeEnum.Person);
+            buyer.setTwitterId("@dotnet");
+            buyer.setWorkPhone("23668285563");
+            
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenerics<BaseResponse, BuyerRequest> httpResponse = 
+                    serviceClient.getBuyer().CreateBuyer(buyer);
+
+            // Obtem objeto de resposta montado
+            String getRawResponse = httpResponse.getRawResponse();
+                    
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 201); 
+        }
+        catch (Exception ex) { 
+            ex.getMessage();
+            assertTrue(false); 
+        }
     }
 }

@@ -89,6 +89,7 @@ public class GatewayServiceClient {
         this.CreditCard = new CreditCardResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
         this.PostNotification = new PostNotificationResource();
         this.TransactionReport = new TransactionReportResource(merchantKey, environment, hostUri);
+        this.Buyer = new BuyerResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
     }
     
     /**
