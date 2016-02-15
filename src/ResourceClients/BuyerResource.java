@@ -5,11 +5,17 @@
  */
 package ResourceClients;
 
-import DataContracts.InstantBuy.GetInstantBuyDataResponse;
+import DataContracts.BaseResponse;
+import DataContracts.Person.BuyerRequest;
+import DataContracts.Person.BuyerResponse;
+import DataContracts.Person.GetBuyerResponseData;
+import DataContracts.Sale.CreateSaleRequest;
+import DataContracts.Sale.CreateSaleResponse;
 import EnumTypes.HttpContentTypeEnum;
 import EnumTypes.HttpVerbEnum;
 import EnumTypes.PlatformEnvironmentEnum;
 import Utility.HttpResponseGenericResponse;
+import Utility.HttpResponseGenerics;
 import java.util.UUID;
 import org.apache.http.message.BasicHeader;
 
@@ -20,25 +26,36 @@ import org.apache.http.message.BasicHeader;
 public class BuyerResource extends BaseResource {
 
     public BuyerResource(UUID merchantKey, PlatformEnvironmentEnum platformEnvironment, HttpContentTypeEnum httpContentType) {
-        super(merchantKey, platformEnvironment, httpContentType, "/Buyer");
+        super(merchantKey, platformEnvironment, httpContentType, "/Buyer/");
     }
     
     public BuyerResource(UUID merchantKey, PlatformEnvironmentEnum platformEnvironment, HttpContentTypeEnum httpContentType, String hostUri) {
-        super(merchantKey, platformEnvironment, httpContentType, "/Buyer", hostUri);
+        super(merchantKey, platformEnvironment, httpContentType, "/Buyer/", hostUri);
     }
     
-    private HttpResponseGenericResponse<GetInstantBuyDataResponse> GetBuyerImplementation(UUID key, String identifierName) throws Exception {
+    public HttpResponseGenericResponse<BuyerResponse> GetBuyer(UUID buyerKey) throws Exception {
         
-        String actionName = "/" + identifierName + key.toString();
-
         HttpVerbEnum httpVerb = HttpVerbEnum.Get;
 
         BasicHeader[] header = new BasicHeader[1];
         header[0] = new BasicHeader("MerchantKey", this.getMerchantKey().toString());
 
-        String serviceUri = this.getHostUri() + this.getResourceName() + actionName;
+        String serviceUri = this.getHostUri() + this.getResourceName() + buyerKey.toString();
         
-        return this.getHttpUtility().<GetInstantBuyDataResponse>SubmitRequest(GetInstantBuyDataResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
+        return this.getHttpUtility().<BuyerResponse>SubmitRequest(BuyerResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
     
+    public HttpResponseGenerics<BaseResponse, BuyerRequest> CreateBuyer(BuyerRequest buyerRequest) throws Exception {
+
+        HttpVerbEnum httpVerb = HttpVerbEnum.Post;
+        
+        BasicHeader[] header = new BasicHeader[1];
+        header[0] = new BasicHeader("MerchantKey", this.getMerchantKey().toString());
+
+        String serviceUri = this.getHostUri() + this.getResourceName();
+        
+        return this.getHttpUtility().<GetBuyerResponseData, BuyerRequest>
+                SubmitRequest(GetBuyerResponseData.class, buyerRequest, 
+                        serviceUri, httpVerb, this.getHttpContentType(), header);
+    }
 }
