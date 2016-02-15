@@ -18,7 +18,7 @@ public class CreditCardResource extends BaseResource {
      * @param httpContentType 
      */
     public CreditCardResource(UUID merchantKey, PlatformEnvironmentEnum platformEnvironment, HttpContentTypeEnum httpContentType) {
-        super(merchantKey, platformEnvironment, httpContentType, "/CreditCard");
+        super(merchantKey, platformEnvironment, httpContentType, "/CreditCard/");
     }
     
     /**
@@ -29,27 +29,49 @@ public class CreditCardResource extends BaseResource {
      * @param hostUri 
      */
     public CreditCardResource(UUID merchantKey, PlatformEnvironmentEnum platformEnvironment, HttpContentTypeEnum httpContentType, String hostUri) {
-        super(merchantKey, platformEnvironment, httpContentType, "/CreditCard", hostUri);
+        super(merchantKey, platformEnvironment, httpContentType, "/CreditCard/", hostUri);
     }
 
     /**
+     * @deprecated Classe deprecated, a nova classe a ser usada é {@link #GetCreditCard(java.util.UUID) }
      * Recupera dados do InstantBuy 
      * @param instantBuyKey
      * @return 
      * @throws java.lang.Exception 
      */
-    public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetInstantBuyData(UUID instantBuyKey) throws Exception {
+    @Deprecated public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetInstantBuyData(UUID instantBuyKey) throws Exception {
         return this.GetInstantBuyDataImplementation(instantBuyKey, "");
     }
     
     /**
+     * Retorna informações do cartão de crédito passando InstantBuyKey
+     * @param instantBuyKey
+     * @return
+     * @throws Exception 
+     */
+    public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetCreditCard(UUID instantBuyKey) throws Exception {
+        return this.GetInstantBuyDataImplementation(instantBuyKey, "");
+    }
+    
+    /**
+     * @deprecated Classe deprecated, a nova classe a ser usada é {@link #GetCreditCardWithBuyerKey(java.util.UUID) }
      * Recupera dados do InstantBuy com chave do comprador
      * @param buyerKey
      * @return 
      * @throws java.lang.Exception 
      */
-    public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetInstantBuyDataWithBuyerKey(UUID buyerKey) throws Exception {
-        return this.GetInstantBuyDataImplementation(buyerKey, "/BuyerKey");
+    @Deprecated public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetInstantBuyDataWithBuyerKey(UUID buyerKey) throws Exception {
+        return this.GetInstantBuyDataImplementation(buyerKey, "BuyerKey=");
+    }
+    
+    /**
+     * Recupera os dados de cartão de crédito com a chave do comprador
+     * @param buyerKey
+     * @return
+     * @throws Exception 
+     */
+    public HttpResponseGenericResponse<GetInstantBuyDataResponse> GetCreditCardWithBuyerKey(UUID buyerKey) throws Exception {
+        return this.GetInstantBuyDataImplementation(buyerKey, "BuyerKey=");
     }
 
     /**
@@ -60,7 +82,7 @@ public class CreditCardResource extends BaseResource {
      */
     private HttpResponseGenericResponse<GetInstantBuyDataResponse> GetInstantBuyDataImplementation(UUID key, String identifierName) throws Exception {
         
-        String actionName = "/" + key.toString() + identifierName;
+        String actionName = identifierName + key.toString();
 
         HttpVerbEnum httpVerb = HttpVerbEnum.Get;
 

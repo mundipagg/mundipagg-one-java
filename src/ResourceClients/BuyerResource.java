@@ -68,7 +68,7 @@ public class BuyerResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenerics<BaseResponse, BuyerRequest> CreateBuyer(BuyerRequest buyerRequest) throws Exception {
+    public HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> CreateBuyer(BuyerRequest buyerRequest) throws Exception {
 
         HttpVerbEnum httpVerb = HttpVerbEnum.Post;
         

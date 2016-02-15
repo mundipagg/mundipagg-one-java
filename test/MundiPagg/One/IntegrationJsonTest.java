@@ -432,12 +432,12 @@ public class IntegrationJsonTest {
     public void TestH_GetInstantBuyData() {
         
         // Define loja e ambiente de integração
-        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");  // Chave da Loja - MerchantKey
         PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
                 
         try {
             // Cria o cliente que vai enviar a requisição
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
             
             // Define a chave do InstantBuy
             UUID instantBuyKey = IntegrationJsonTest.InstantBuyKey;
@@ -540,7 +540,7 @@ public class IntegrationJsonTest {
             buyer.setWorkPhone("23668285563");
             
             // Autoriza a transação e retorna a resposta do gateway
-            HttpResponseGenerics<BaseResponse, BuyerRequest> httpResponse = 
+            HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> httpResponse = 
                     serviceClient.getBuyer().CreateBuyer(buyer);
 
             // Obtem objeto de resposta montado
