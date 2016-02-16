@@ -884,6 +884,10 @@ public class IntegrationJsonTest {
     ///////////////////////////
     // BUYER RESOURCE TESTS  //
     ///////////////////////////
+    
+    /**
+     * Testa se o Buyer está sendo criado
+     */
     @Test
     public void TestO_CreateBuyer() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
@@ -943,6 +947,9 @@ public class IntegrationJsonTest {
         }
     }
 
+    /**
+     * Testa se o Buyer está sendo resgatado
+     */
     @Test
     public void TestP_GetBuyer() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
@@ -952,17 +959,55 @@ public class IntegrationJsonTest {
             // Cria o cliente que vai enviar a requisição
             GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
 
-            UUID buyerKey = IntegrationJsonTest.BuyerKey;
+            // Monta objeto Address
+            BuyerAddress buyerAddress = new BuyerAddress();
+            buyerAddress.setAddressType(AddressTypeEnum.Comercial);
+            buyerAddress.setCity("Rio de Janeiro");
+            buyerAddress.setComplement("Hue br");
+            buyerAddress.setCountry(CountryEnum.Brazil);
+            buyerAddress.setDistrict("Tijuca");
+            buyerAddress.setNumber("123");
+            buyerAddress.setState("RJ");
+            buyerAddress.setStreet("Ruezis do Padris");
+            buyerAddress.setZipCode("20270230");
+
+            // Define a chave do InstantBuy
+            BuyerRequest buyer = new BuyerRequest();
+            buyer.setAddressCollection(new ArrayList<>());
+            buyer.getAddressCollection().add(buyerAddress);
+            buyer.setBirthdate(Date.valueOf("1994-9-26"));
+            buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
+            buyer.setBuyerReference("Javanês");
+            buyer.setCreateDateInMerchant(Date.valueOf("2015-12-20"));
+            buyer.setDocumentNumber("12345678901");
+            buyer.setDocumentType(DocumentTypeEnum.CPF);
+            buyer.setEmail("is_no_good@java.com");
+            buyer.setEmailType(EmailTypeEnum.Comercial);
+            buyer.setFacebookId("some.id");
+            buyer.setGender(GenderEnum.M);
+            buyer.setHomePhone("21954325678");
+            buyer.setIpAddress("192.168.1.1");
+            buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
+            buyer.setMobilePhone("21555554556");
+            buyer.setName("Dot Net");
+            buyer.setPersonType(PersonTypeEnum.Person);
+            buyer.setTwitterId("@dotnet");
+            buyer.setWorkPhone("23668285563");
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> httpResponseBuyer
+                    = serviceClient.getBuyer().CreateBuyer(buyer);
 
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenericResponse<BuyerResponse> httpResponse
-                    = serviceClient.getBuyer().GetBuyer(buyerKey);
+                    = serviceClient.getBuyer().GetBuyer(httpResponseBuyer.getResponse().getBuyerKey());
 
             // Obtem objeto de resposta montado
             String getRawResponse = httpResponse.getRawResponse();
 
             // Testa se conseguiu obter recurso
             assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200);
+            assertTrue(httpResponse.getResponse().getSuccess());
         } catch (Exception ex) {
             ex.getMessage();
             assertTrue(false);
