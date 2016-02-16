@@ -872,7 +872,7 @@ public class IntegrationJsonTest {
             creditCardUpdateRequest.setBuyerKey(httpResponseBuyer.getResponse().getBuyerKey());
             
             HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest> httpResponse
-                    = serviceClient.getCreditCard().UpdateCreateCreditCard(creditCardUpdateRequest, httpResponseCreateBuyer.getResponse().getInstantBuyKey());
+                    = serviceClient.getCreditCard().UpdateCreditCard(creditCardUpdateRequest, httpResponseCreateBuyer.getResponse().getInstantBuyKey());
             
             assertTrue(httpResponse.getResponse().getSuccess());
         } catch (Exception ex) {

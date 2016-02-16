@@ -141,7 +141,7 @@ public class CreditCardResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest>UpdateCreateCreditCard(CreditCardUpdateRequest creditCardUpdateRequest, UUID instantBuyKey) throws Exception {
+    public HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest>UpdateCreditCard(CreditCardUpdateRequest creditCardUpdateRequest, UUID instantBuyKey) throws Exception {
         HttpVerbEnum httpVerb = HttpVerbEnum.Patch;
         
         BasicHeader[] header = new BasicHeader[1];
