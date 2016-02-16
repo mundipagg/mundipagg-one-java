@@ -5,7 +5,6 @@
  */
 package ResourceClients;
 
-import DataContracts.BaseResponse;
 import DataContracts.Person.BuyerRequest;
 import DataContracts.Person.BuyerResponse;
 import DataContracts.Person.GetBuyerResponseData;

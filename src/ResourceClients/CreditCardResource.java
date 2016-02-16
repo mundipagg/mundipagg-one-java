@@ -1,8 +1,11 @@
 package ResourceClients;
 
+import DataContracts.InstantBuy.CreditCardRequest;
+import DataContracts.InstantBuy.CreditCardResponse;
 import DataContracts.InstantBuy.GetInstantBuyDataResponse;
 import EnumTypes.*;
 import Utility.HttpResponseGenericResponse;
+import Utility.HttpResponseGenerics;
 import java.util.UUID;
 import org.apache.http.message.BasicHeader;
 
@@ -92,5 +95,23 @@ public class CreditCardResource extends BaseResource {
         String serviceUri = this.getHostUri() + this.getResourceName() + actionName;
         
         return this.getHttpUtility().<GetInstantBuyDataResponse>SubmitRequest(GetInstantBuyDataResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
+    }
+    
+    /**
+     * Cria um cartão de crédito
+     * @param creditCardRequest
+     * @return
+     * @throws Exception
+     */
+    public HttpResponseGenerics<CreditCardResponse, CreditCardRequest>CreateCreditCard(CreditCardRequest creditCardRequest) throws Exception {
+        HttpVerbEnum httpVerb = HttpVerbEnum.Post;
+        
+        BasicHeader[] header = new BasicHeader[1];
+        header[0] = new BasicHeader("MerchantKey", this.getMerchantKey().toString());
+
+        String serviceUri = this.getHostUri() + this.getResourceName();
+        
+        return this.getHttpUtility().<CreditCardResponse, CreditCardRequest>
+                SubmitRequest(CreditCardResponse.class, creditCardRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
 }
