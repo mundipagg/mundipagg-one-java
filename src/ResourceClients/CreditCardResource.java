@@ -1,5 +1,6 @@
 package ResourceClients;
 
+import DataContracts.InstantBuy.CreditCardBaseResponse;
 import DataContracts.InstantBuy.CreditCardRequest;
 import DataContracts.InstantBuy.CreditCardResponse;
 import DataContracts.InstantBuy.GetInstantBuyDataResponse;
@@ -113,5 +114,16 @@ public class CreditCardResource extends BaseResource {
         
         return this.getHttpUtility().<CreditCardResponse, CreditCardRequest>
                 SubmitRequest(CreditCardResponse.class, creditCardRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
+    }
+    
+    public HttpResponseGenericResponse<CreditCardBaseResponse> DeleteCreditCard(UUID instantBuyKey) throws Exception {
+        HttpVerbEnum httpVerb = HttpVerbEnum.Delete;
+
+        BasicHeader[] header = new BasicHeader[1];
+        header[0] = new BasicHeader("MerchantKey", this.getMerchantKey().toString());
+
+        String serviceUri = this.getHostUri() + this.getResourceName() + instantBuyKey.toString();
+        
+        return this.getHttpUtility().<CreditCardBaseResponse>SubmitRequest(CreditCardBaseResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
 }

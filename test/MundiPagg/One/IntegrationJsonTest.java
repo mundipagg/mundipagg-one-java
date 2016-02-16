@@ -726,6 +726,55 @@ public class IntegrationJsonTest {
             assertTrue(false);
         }
     }
+    
+    @Test
+    public void TestM_DeleteCreditCard() {
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
+        PlatformEnvironmentEnum environment = this.Environment;
+
+        try {
+
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+
+            CreditCardRequest creditCardRequest = new CreditCardRequest();
+            creditCardRequest.setBillingAddress(new BillingAddress());
+            creditCardRequest.getBillingAddress().setCity("Rio de Janeiro");
+            creditCardRequest.getBillingAddress().setComplement("Perto do verão");
+            creditCardRequest.getBillingAddress().setCountry(CountryEnum.Brazil);
+            creditCardRequest.getBillingAddress().setDistrict("Centro");
+            creditCardRequest.getBillingAddress().setNumber("123");
+            creditCardRequest.getBillingAddress().setState("RJ");
+            creditCardRequest.getBillingAddress().setStreet("Av. General inJusto");
+            creditCardRequest.getBillingAddress().setZipCode("20270230");
+            creditCardRequest.setCreditCardBrand(CreditCardBrandEnum.Visa);
+            creditCardRequest.setCreditCardNumber("4111111111111111");
+            creditCardRequest.setExpMonth(12);
+            creditCardRequest.setExpYear(22);
+            creditCardRequest.setHolderName("Joshua Ronson");
+            creditCardRequest.setIsOneDollarAuthEnabled(Boolean.TRUE);
+            creditCardRequest.setSecurityCode("123");
+
+            HttpResponseGenerics<CreditCardResponse, CreditCardRequest> httpResponseNewCreditCard
+                    = serviceClient.getCreditCard().CreateCreditCard(creditCardRequest);
+            
+            // Obtem objeto de resposta montado
+            String getRawResponse = httpResponseNewCreditCard.getRawResponse();
+            
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponseNewCreditCard.getHttpStatusCode().getStatusCode(), 201);
+            assertTrue(httpResponseNewCreditCard.getResponse().getSuccess());
+            
+            HttpResponseGenericResponse<CreditCardBaseResponse> httpResponse
+                    = serviceClient.getCreditCard().DeleteCreditCard(httpResponseNewCreditCard.getResponse().getInstantBuyKey());
+            
+            assertTrue(httpResponse.getResponse().getSuccess());
+
+        } catch (Exception ex) {
+            String message = ex.getMessage();
+            assertTrue(false);
+        }
+    }
 
     ///////////////////////////
     // BUYER RESOURCE TESTS  //
