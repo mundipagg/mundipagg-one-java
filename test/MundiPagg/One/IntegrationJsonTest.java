@@ -448,9 +448,30 @@ public class IntegrationJsonTest {
         try {
             // Cria o cliente que vai enviar a requisição
             GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+            
+            CreditCardRequest creditCardRequest = new CreditCardRequest();
+            creditCardRequest.setBillingAddress(new BillingAddress());
+            creditCardRequest.getBillingAddress().setCity("Rio de Janeiro");
+            creditCardRequest.getBillingAddress().setComplement("Perto do verão");
+            creditCardRequest.getBillingAddress().setCountry(CountryEnum.Brazil);
+            creditCardRequest.getBillingAddress().setDistrict("Centro");
+            creditCardRequest.getBillingAddress().setNumber("123");
+            creditCardRequest.getBillingAddress().setState("RJ");
+            creditCardRequest.getBillingAddress().setStreet("Av. General inJusto");
+            creditCardRequest.getBillingAddress().setZipCode("20270230");
+            creditCardRequest.setCreditCardBrand(CreditCardBrandEnum.Visa);
+            creditCardRequest.setCreditCardNumber("4111111111111111");
+            creditCardRequest.setExpMonth(12);
+            creditCardRequest.setExpYear(22);
+            creditCardRequest.setHolderName("Joshua Ronson");
+            creditCardRequest.setIsOneDollarAuthEnabled(Boolean.TRUE);
+            creditCardRequest.setSecurityCode("123");
 
+            HttpResponseGenerics<CreditCardResponse, CreditCardRequest> getInstantBuyHttpResponse
+                    = serviceClient.getCreditCard().CreateCreditCard(creditCardRequest);
+            
             // Define a chave do InstantBuy
-            UUID instantBuyKey = IntegrationJsonTest.InstantBuyKey;
+            UUID instantBuyKey = getInstantBuyHttpResponse.getResponse().getInstantBuyKey();
 
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse
@@ -481,10 +502,49 @@ public class IntegrationJsonTest {
 
         try {
             // Cria o cliente que vai enviar a requisição
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment);
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+
+            // Monta objeto Address
+            BuyerAddress buyerAddress = new BuyerAddress();
+            buyerAddress.setAddressType(AddressTypeEnum.Comercial);
+            buyerAddress.setCity("Rio de Janeiro");
+            buyerAddress.setComplement("Hue br");
+            buyerAddress.setCountry(CountryEnum.Brazil);
+            buyerAddress.setDistrict("Tijuca");
+            buyerAddress.setNumber("123");
+            buyerAddress.setState("RJ");
+            buyerAddress.setStreet("Ruezis do Padris");
+            buyerAddress.setZipCode("20270230");
 
             // Define a chave do InstantBuy
-            UUID buyerKey = IntegrationJsonTest.BuyerKey;
+            BuyerRequest buyer = new BuyerRequest();
+            buyer.setAddressCollection(new ArrayList<>());
+            buyer.getAddressCollection().add(buyerAddress);
+            buyer.setBirthdate(Date.valueOf("1994-9-26"));
+            buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
+            buyer.setBuyerReference("Javanês");
+            buyer.setCreateDateInMerchant(Date.valueOf("2015-12-20"));
+            buyer.setDocumentNumber("12345678901");
+            buyer.setDocumentType(DocumentTypeEnum.CPF);
+            buyer.setEmail("is_no_good@java.com");
+            buyer.setEmailType(EmailTypeEnum.Comercial);
+            buyer.setFacebookId("some.id");
+            buyer.setGender(GenderEnum.M);
+            buyer.setHomePhone("21954325678");
+            buyer.setIpAddress("192.168.1.1");
+            buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
+            buyer.setMobilePhone("21555554556");
+            buyer.setName("Dot Net");
+            buyer.setPersonType(PersonTypeEnum.Person);
+            buyer.setTwitterId("@dotnet");
+            buyer.setWorkPhone("23668285563");
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> httpResponseBuyer
+                    = serviceClient.getBuyer().CreateBuyer(buyer);
+
+            // Define a chave do InstantBuy
+            UUID buyerKey = httpResponseBuyer.getResponse().getBuyerKey();
 
             // Autoriza a transação e retorna a resposta do gateway
             HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse
@@ -497,7 +557,6 @@ public class IntegrationJsonTest {
             // Testa se conseguiu obter recurso
             assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200);
             assertNotNull(getInstantBuyDataResponse.getCreditCardDataCollection());
-            assertTrue(getInstantBuyDataResponse.getCreditCardDataCount() > 0);
         } catch (Exception ex) {
             assertTrue(false);
         }
@@ -543,6 +602,127 @@ public class IntegrationJsonTest {
 
         } catch (Exception ex) {
             String message = ex.getMessage();
+            assertTrue(false);
+        }
+    }
+    
+    @Test
+    public void TestK_GetCreditCard() {
+
+        // Define loja e ambiente de integração
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
+
+        try {
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+            
+            CreditCardRequest creditCardRequest = new CreditCardRequest();
+            creditCardRequest.setBillingAddress(new BillingAddress());
+            creditCardRequest.getBillingAddress().setCity("Rio de Janeiro");
+            creditCardRequest.getBillingAddress().setComplement("Perto do verão");
+            creditCardRequest.getBillingAddress().setCountry(CountryEnum.Brazil);
+            creditCardRequest.getBillingAddress().setDistrict("Centro");
+            creditCardRequest.getBillingAddress().setNumber("123");
+            creditCardRequest.getBillingAddress().setState("RJ");
+            creditCardRequest.getBillingAddress().setStreet("Av. General inJusto");
+            creditCardRequest.getBillingAddress().setZipCode("20270230");
+            creditCardRequest.setCreditCardBrand(CreditCardBrandEnum.Visa);
+            creditCardRequest.setCreditCardNumber("4111111111111111");
+            creditCardRequest.setExpMonth(12);
+            creditCardRequest.setExpYear(22);
+            creditCardRequest.setHolderName("Joshua Ronson");
+            creditCardRequest.setIsOneDollarAuthEnabled(Boolean.TRUE);
+            creditCardRequest.setSecurityCode("123");
+
+            HttpResponseGenerics<CreditCardResponse, CreditCardRequest> getInstantBuyHttpResponse
+                    = serviceClient.getCreditCard().CreateCreditCard(creditCardRequest);
+            
+            // Define a chave do InstantBuy
+            UUID instantBuyKey = getInstantBuyHttpResponse.getResponse().getInstantBuyKey();
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse
+                    = serviceClient.getCreditCard().GetCreditCard(instantBuyKey);
+
+            // Obtem objeto de resposta montado
+            GetInstantBuyDataResponse getInstantBuyDataResponse = httpResponse.getResponse();
+            String getInstantBuyDataRawResponse = httpResponse.getRawResponse();
+
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200);
+            assertNotNull(getInstantBuyDataResponse.getCreditCardDataCollection());
+            assertTrue(getInstantBuyDataResponse.getCreditCardDataCount() > 0);
+        } catch (Exception ex) {
+            assertTrue(false);
+        }
+    }
+    
+    @Test
+    public void TestL_GetCreditCardWithBuyerKey() {
+
+        // Define loja e ambiente de integração
+        UUID merchantKey = this.MerchantKey;  // Chave da Loja - MerchantKey
+        PlatformEnvironmentEnum environment = this.Environment; // Ambiente de integração para o teste
+
+        try {
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+
+            // Monta objeto Address
+            BuyerAddress buyerAddress = new BuyerAddress();
+            buyerAddress.setAddressType(AddressTypeEnum.Comercial);
+            buyerAddress.setCity("Rio de Janeiro");
+            buyerAddress.setComplement("Hue br");
+            buyerAddress.setCountry(CountryEnum.Brazil);
+            buyerAddress.setDistrict("Tijuca");
+            buyerAddress.setNumber("123");
+            buyerAddress.setState("RJ");
+            buyerAddress.setStreet("Ruezis do Padris");
+            buyerAddress.setZipCode("20270230");
+
+            // Define a chave do InstantBuy
+            BuyerRequest buyer = new BuyerRequest();
+            buyer.setAddressCollection(new ArrayList<>());
+            buyer.getAddressCollection().add(buyerAddress);
+            buyer.setBirthdate(Date.valueOf("1994-9-26"));
+            buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
+            buyer.setBuyerReference("Javanês");
+            buyer.setCreateDateInMerchant(Date.valueOf("2015-12-20"));
+            buyer.setDocumentNumber("12345678901");
+            buyer.setDocumentType(DocumentTypeEnum.CPF);
+            buyer.setEmail("is_no_good@java.com");
+            buyer.setEmailType(EmailTypeEnum.Comercial);
+            buyer.setFacebookId("some.id");
+            buyer.setGender(GenderEnum.M);
+            buyer.setHomePhone("21954325678");
+            buyer.setIpAddress("192.168.1.1");
+            buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
+            buyer.setMobilePhone("21555554556");
+            buyer.setName("Dot Net");
+            buyer.setPersonType(PersonTypeEnum.Person);
+            buyer.setTwitterId("@dotnet");
+            buyer.setWorkPhone("23668285563");
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> httpResponseBuyer
+                    = serviceClient.getBuyer().CreateBuyer(buyer);
+
+            // Define a chave do InstantBuy
+            UUID buyerKey = httpResponseBuyer.getResponse().getBuyerKey();
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenericResponse<GetInstantBuyDataResponse> httpResponse
+                    = serviceClient.getCreditCard().GetCreditCardWithBuyerKey(buyerKey);
+
+            // Obtem objeto de resposta montado
+            GetInstantBuyDataResponse getInstantBuyDataResponse = httpResponse.getResponse();
+            String getInstantBuyDataRawResponse = httpResponse.getRawResponse();
+
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponse.getHttpStatusCode().getStatusCode(), 200);
+            assertNotNull(getInstantBuyDataResponse.getCreditCardDataCollection());
+        } catch (Exception ex) {
             assertTrue(false);
         }
     }
