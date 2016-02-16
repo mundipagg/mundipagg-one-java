@@ -3,6 +3,7 @@ package ResourceClients;
 import DataContracts.InstantBuy.CreditCardBaseResponse;
 import DataContracts.InstantBuy.CreditCardRequest;
 import DataContracts.InstantBuy.CreditCardResponse;
+import DataContracts.InstantBuy.CreditCardUpdateRequest;
 import DataContracts.InstantBuy.GetInstantBuyDataResponse;
 import EnumTypes.*;
 import Utility.HttpResponseGenericResponse;
@@ -116,6 +117,12 @@ public class CreditCardResource extends BaseResource {
                 SubmitRequest(CreditCardResponse.class, creditCardRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
     
+    /**
+     * Deleta um cartão de crédito
+     * @param instantBuyKey
+     * @return
+     * @throws Exception 
+     */
     public HttpResponseGenericResponse<CreditCardBaseResponse> DeleteCreditCard(UUID instantBuyKey) throws Exception {
         HttpVerbEnum httpVerb = HttpVerbEnum.Delete;
 
@@ -125,5 +132,24 @@ public class CreditCardResource extends BaseResource {
         String serviceUri = this.getHostUri() + this.getResourceName() + instantBuyKey.toString();
         
         return this.getHttpUtility().<CreditCardBaseResponse>SubmitRequest(CreditCardBaseResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
+    }
+    
+    /**
+     * Atualiza os dados de cartão de crédito
+     * @param creditCardUpdateRequest
+     * @param instantBuyKey
+     * @return
+     * @throws Exception 
+     */
+    public HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest>UpdateCreateCreditCard(CreditCardUpdateRequest creditCardUpdateRequest, UUID instantBuyKey) throws Exception {
+        HttpVerbEnum httpVerb = HttpVerbEnum.Patch;
+        
+        BasicHeader[] header = new BasicHeader[1];
+        header[0] = new BasicHeader("MerchantKey", this.getMerchantKey().toString());
+
+        String serviceUri = this.getHostUri() + this.getResourceName() + instantBuyKey;
+        
+        return this.getHttpUtility().<CreditCardBaseResponse, CreditCardUpdateRequest>
+                SubmitRequest(CreditCardBaseResponse.class, creditCardUpdateRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
 }

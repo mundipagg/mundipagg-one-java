@@ -562,6 +562,9 @@ public class IntegrationJsonTest {
         }
     }
 
+    /**
+     * Testa a criação de um cartão de crédito
+     */
     @Test
     public void TestJ_CreateCreditCard() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
@@ -606,6 +609,9 @@ public class IntegrationJsonTest {
         }
     }
     
+    /**
+     * Testa a recuperação de um cartão de crédito
+     */
     @Test
     public void TestK_GetCreditCard() {
 
@@ -658,6 +664,9 @@ public class IntegrationJsonTest {
         }
     }
     
+    /**
+     * Testa a recuperação de um cartão de crédito com o buyerkey
+     */
     @Test
     public void TestL_GetCreditCardWithBuyerKey() {
 
@@ -727,6 +736,9 @@ public class IntegrationJsonTest {
         }
     }
     
+    /**
+     * Testa a remoação de um cartão
+     */
     @Test
     public void TestM_DeleteCreditCard() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
@@ -775,12 +787,105 @@ public class IntegrationJsonTest {
             assertTrue(false);
         }
     }
+    
+    /**
+     * Teste atualiza cartão de crédito
+     */
+    @Test
+    public void TestN_UpdateCreditCart() {
+        UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
+        PlatformEnvironmentEnum environment = this.Environment;
+
+        try {
+
+            // Cria o cliente que vai enviar a requisição
+            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey, environment, "https://stagingv2.mundipaggone.com");
+
+            CreditCardRequest creditCardRequest = new CreditCardRequest();
+            creditCardRequest.setBillingAddress(new BillingAddress());
+            creditCardRequest.getBillingAddress().setCity("Rio de Janeiro");
+            creditCardRequest.getBillingAddress().setComplement("Perto do verão");
+            creditCardRequest.getBillingAddress().setCountry(CountryEnum.Brazil);
+            creditCardRequest.getBillingAddress().setDistrict("Centro");
+            creditCardRequest.getBillingAddress().setNumber("123");
+            creditCardRequest.getBillingAddress().setState("RJ");
+            creditCardRequest.getBillingAddress().setStreet("Av. General inJusto");
+            creditCardRequest.getBillingAddress().setZipCode("20270230");
+            creditCardRequest.setCreditCardBrand(CreditCardBrandEnum.Visa);
+            creditCardRequest.setCreditCardNumber("4111111111111111");
+            creditCardRequest.setExpMonth(12);
+            creditCardRequest.setExpYear(22);
+            creditCardRequest.setHolderName("Joshua Ronson");
+            creditCardRequest.setIsOneDollarAuthEnabled(Boolean.TRUE);
+            creditCardRequest.setSecurityCode("123");
+
+            HttpResponseGenerics<CreditCardResponse, CreditCardRequest> httpResponseCreateBuyer
+                    = serviceClient.getCreditCard().CreateCreditCard(creditCardRequest);
+                       
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponseCreateBuyer.getHttpStatusCode().getStatusCode(), 201);
+            assertTrue(httpResponseCreateBuyer.getResponse().getSuccess());
+            
+            // Monta objeto Address
+            BuyerAddress buyerAddress = new BuyerAddress();
+            buyerAddress.setAddressType(AddressTypeEnum.Comercial);
+            buyerAddress.setCity("Rio de Janeiro");
+            buyerAddress.setComplement("Hue br");
+            buyerAddress.setCountry(CountryEnum.Brazil);
+            buyerAddress.setDistrict("Tijuca");
+            buyerAddress.setNumber("123");
+            buyerAddress.setState("RJ");
+            buyerAddress.setStreet("Ruezis do Padris");
+            buyerAddress.setZipCode("20270230");
+
+            // Define a chave do InstantBuy
+            BuyerRequest buyer = new BuyerRequest();
+            buyer.setAddressCollection(new ArrayList<>());
+            buyer.getAddressCollection().add(buyerAddress);
+            buyer.setBirthdate(Date.valueOf("1994-9-26"));
+            buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
+            buyer.setBuyerReference("Javanês");
+            buyer.setCreateDateInMerchant(Date.valueOf("2015-12-20"));
+            buyer.setDocumentNumber("12345678901");
+            buyer.setDocumentType(DocumentTypeEnum.CPF);
+            buyer.setEmail("is_no_good@java.com");
+            buyer.setEmailType(EmailTypeEnum.Comercial);
+            buyer.setFacebookId("some.id");
+            buyer.setGender(GenderEnum.M);
+            buyer.setHomePhone("21954325678");
+            buyer.setIpAddress("192.168.1.1");
+            buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
+            buyer.setMobilePhone("21555554556");
+            buyer.setName("Dot Net");
+            buyer.setPersonType(PersonTypeEnum.Person);
+            buyer.setTwitterId("@dotnet");
+            buyer.setWorkPhone("23668285563");
+
+            // Autoriza a transação e retorna a resposta do gateway
+            HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> httpResponseBuyer
+                    = serviceClient.getBuyer().CreateBuyer(buyer);
+
+            // Testa se conseguiu obter recurso
+            assertEquals(httpResponseBuyer.getHttpStatusCode().getStatusCode(), 201);
+            
+            CreditCardUpdateRequest creditCardUpdateRequest = new CreditCardUpdateRequest();
+            creditCardUpdateRequest.setBuyerKey(httpResponseBuyer.getResponse().getBuyerKey());
+            
+            HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest> httpResponse
+                    = serviceClient.getCreditCard().UpdateCreateCreditCard(creditCardUpdateRequest, httpResponseCreateBuyer.getResponse().getInstantBuyKey());
+            
+            assertTrue(httpResponse.getResponse().getSuccess());
+        } catch (Exception ex) {
+            String message = ex.getMessage();
+            assertTrue(false);
+        }
+    }
 
     ///////////////////////////
     // BUYER RESOURCE TESTS  //
     ///////////////////////////
     @Test
-    public void TestJ_CreateBuyer() {
+    public void TestO_CreateBuyer() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
         PlatformEnvironmentEnum environment = this.Environment;
 
@@ -839,7 +944,7 @@ public class IntegrationJsonTest {
     }
 
     @Test
-    public void TestK_GetBuyer() {
+    public void TestP_GetBuyer() {
         UUID merchantKey = UUID.fromString("8A2DD57F-1ED9-4153-B4CE-69683EFADAD5");
         PlatformEnvironmentEnum environment = this.Environment;
 
