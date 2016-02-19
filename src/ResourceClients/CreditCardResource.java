@@ -1,9 +1,10 @@
 package ResourceClients;
 
-import DataContracts.InstantBuy.CreditCardBaseResponse;
-import DataContracts.InstantBuy.CreditCardRequest;
-import DataContracts.InstantBuy.CreditCardResponse;
-import DataContracts.InstantBuy.CreditCardUpdateRequest;
+import DataContracts.InstantBuy.UpdateInstantBuyDataResponse;
+import DataContracts.InstantBuy.CreateInstantBuyDataRequest;
+import DataContracts.InstantBuy.CreateInstantBuyDataResponse;
+import DataContracts.InstantBuy.DeleteInstantBuyDataResponse;
+import DataContracts.InstantBuy.UpdateInstantBuyDataRequest;
 import DataContracts.InstantBuy.GetInstantBuyDataResponse;
 import EnumTypes.*;
 import Utility.HttpResponseGenericResponse;
@@ -105,7 +106,7 @@ public class CreditCardResource extends BaseResource {
      * @return
      * @throws Exception
      */
-    public HttpResponseGenerics<CreditCardResponse, CreditCardRequest>CreateCreditCard(CreditCardRequest creditCardRequest) throws Exception {
+    public HttpResponseGenerics<CreateInstantBuyDataResponse, CreateInstantBuyDataRequest>CreateCreditCard(CreateInstantBuyDataRequest creditCardRequest) throws Exception {
         HttpVerbEnum httpVerb = HttpVerbEnum.Post;
         
         BasicHeader[] header = new BasicHeader[1];
@@ -113,8 +114,8 @@ public class CreditCardResource extends BaseResource {
 
         String serviceUri = this.getHostUri() + this.getResourceName();
         
-        return this.getHttpUtility().<CreditCardResponse, CreditCardRequest>
-                SubmitRequest(CreditCardResponse.class, creditCardRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
+        return this.getHttpUtility().<CreateInstantBuyDataResponse, CreateInstantBuyDataRequest>
+                SubmitRequest(CreateInstantBuyDataResponse.class, creditCardRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
     
     /**
@@ -123,7 +124,7 @@ public class CreditCardResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenericResponse<CreditCardBaseResponse> DeleteCreditCard(UUID instantBuyKey) throws Exception {
+    public HttpResponseGenericResponse<DeleteInstantBuyDataResponse> DeleteCreditCard(UUID instantBuyKey) throws Exception {
         HttpVerbEnum httpVerb = HttpVerbEnum.Delete;
 
         BasicHeader[] header = new BasicHeader[1];
@@ -131,7 +132,7 @@ public class CreditCardResource extends BaseResource {
 
         String serviceUri = this.getHostUri() + this.getResourceName() + instantBuyKey.toString();
         
-        return this.getHttpUtility().<CreditCardBaseResponse>SubmitRequest(CreditCardBaseResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
+        return this.getHttpUtility().<DeleteInstantBuyDataResponse>SubmitRequest(DeleteInstantBuyDataResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
     
     /**
@@ -141,7 +142,7 @@ public class CreditCardResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenerics<CreditCardBaseResponse, CreditCardUpdateRequest>UpdateCreditCard(CreditCardUpdateRequest creditCardUpdateRequest, UUID instantBuyKey) throws Exception {
+    public HttpResponseGenerics<UpdateInstantBuyDataResponse, UpdateInstantBuyDataRequest>UpdateCreditCard(UpdateInstantBuyDataRequest creditCardUpdateRequest, UUID instantBuyKey) throws Exception {
         HttpVerbEnum httpVerb = HttpVerbEnum.Patch;
         
         BasicHeader[] header = new BasicHeader[1];
@@ -149,7 +150,7 @@ public class CreditCardResource extends BaseResource {
 
         String serviceUri = this.getHostUri() + this.getResourceName() + instantBuyKey;
         
-        return this.getHttpUtility().<CreditCardBaseResponse, CreditCardUpdateRequest>
-                SubmitRequest(CreditCardBaseResponse.class, creditCardUpdateRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
+        return this.getHttpUtility().<UpdateInstantBuyDataResponse, UpdateInstantBuyDataRequest>
+                SubmitRequest(UpdateInstantBuyDataResponse.class, creditCardUpdateRequest, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
 }

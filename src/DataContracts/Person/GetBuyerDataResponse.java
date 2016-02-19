@@ -20,9 +20,9 @@ import java.util.UUID;
  *
  * @author Munir
  */
-public class BuyerResponse extends BaseResponse {
+public class GetBuyerDataResponse extends BaseResponse {
 
-    public BuyerResponse() {
+    public GetBuyerDataResponse() {
         this.setAddressCollection(new ArrayList());
     }
     

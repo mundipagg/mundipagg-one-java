@@ -11,7 +11,7 @@ import java.util.UUID;
  *
  * @author Munir
  */
-public class CreditCardUpdateRequest {
+public class UpdateInstantBuyDataRequest {
     /**
      * Chave do comprador
      */    

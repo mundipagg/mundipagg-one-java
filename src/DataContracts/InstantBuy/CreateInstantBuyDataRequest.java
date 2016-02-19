@@ -7,17 +7,24 @@ package DataContracts.InstantBuy;
 
 import DataContracts.Address.BillingAddress;
 import EnumTypes.CreditCardBrandEnum;
+import java.util.UUID;
 
 /**
  *
  * @author Munir
  */
-public class CreditCardRequest {
+public class CreateInstantBuyDataRequest {
     /**
      * Objeto de endereço de cobrança
      */
     private BillingAddress BillingAddress;
     
+    
+    /**
+     * Chave do comprador
+     */
+    private UUID BuyerKey;
+   
     /**
      * Bandeira do cartão de crédito
      */
@@ -53,6 +60,22 @@ public class CreditCardRequest {
      */
     private String SecurityCode;
 
+     /**
+     * Recupera chave do comprador
+     * @return 
+     */
+    public UUID getBuyerKey() {
+        return BuyerKey;
+    }
+
+    /**
+     * Define a chave do comprador
+     * @param BuyerKey 
+     */
+    public void setBuyerKey(UUID BuyerKey) {
+        this.BuyerKey = BuyerKey;
+    }
+    
     /**
      * Retorna a bandeira do cartão
      * @return 

@@ -5,9 +5,9 @@
  */
 package ResourceClients;
 
-import DataContracts.Person.BuyerRequest;
-import DataContracts.Person.BuyerResponse;
-import DataContracts.Person.GetBuyerResponseData;
+import DataContracts.Person.CreateBuyerRequest;
+import DataContracts.Person.GetBuyerDataResponse;
+import DataContracts.Person.CreateBuyerResponse;
 import EnumTypes.HttpContentTypeEnum;
 import EnumTypes.HttpVerbEnum;
 import EnumTypes.PlatformEnvironmentEnum;
@@ -49,7 +49,7 @@ public class BuyerResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenericResponse<BuyerResponse> GetBuyer(UUID buyerKey) throws Exception {
+    public HttpResponseGenericResponse<GetBuyerDataResponse> GetBuyer(UUID buyerKey) throws Exception {
         
         HttpVerbEnum httpVerb = HttpVerbEnum.Get;
 
@@ -58,7 +58,7 @@ public class BuyerResource extends BaseResource {
 
         String serviceUri = this.getHostUri() + this.getResourceName() + buyerKey.toString();
         
-        return this.getHttpUtility().<BuyerResponse>SubmitRequest(BuyerResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
+        return this.getHttpUtility().<GetBuyerDataResponse>SubmitRequest(GetBuyerDataResponse.class, serviceUri, httpVerb, this.getHttpContentType(), header);
     }
     
     /**
@@ -67,7 +67,7 @@ public class BuyerResource extends BaseResource {
      * @return
      * @throws Exception 
      */
-    public HttpResponseGenerics<GetBuyerResponseData, BuyerRequest> CreateBuyer(BuyerRequest buyerRequest) throws Exception {
+    public HttpResponseGenerics<CreateBuyerResponse, CreateBuyerRequest> CreateBuyer(CreateBuyerRequest buyerRequest) throws Exception {
 
         HttpVerbEnum httpVerb = HttpVerbEnum.Post;
         
@@ -76,8 +76,8 @@ public class BuyerResource extends BaseResource {
 
         String serviceUri = this.getHostUri() + this.getResourceName();
         
-        return this.getHttpUtility().<GetBuyerResponseData, BuyerRequest>
-                SubmitRequest(GetBuyerResponseData.class, buyerRequest, 
+        return this.getHttpUtility().<CreateBuyerResponse, CreateBuyerRequest>
+                SubmitRequest(CreateBuyerResponse.class, buyerRequest, 
                         serviceUri, httpVerb, this.getHttpContentType(), header);
     }
 }

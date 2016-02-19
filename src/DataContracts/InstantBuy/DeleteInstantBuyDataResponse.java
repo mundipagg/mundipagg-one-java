@@ -5,14 +5,12 @@
  */
 package DataContracts.InstantBuy;
 
-import DataContracts.BaseResponse;
-
 /**
  *
  * @author Munir
  */
-public class CreditCardBaseResponse extends BaseResponse {
-    /**
+public class DeleteInstantBuyDataResponse {
+     /**
      * Indicador de sucesso
      */
     private Boolean Success;

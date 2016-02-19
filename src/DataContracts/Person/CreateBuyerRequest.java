@@ -18,9 +18,9 @@ import java.util.Date;
  *
  * @author munir
  */
-public final class BuyerRequest {
+public final class CreateBuyerRequest {
 
-    public BuyerRequest() {
+    public CreateBuyerRequest() {
         this.setAddressCollection(new ArrayList());
     }
     

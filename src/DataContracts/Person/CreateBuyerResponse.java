@@ -12,7 +12,7 @@ import java.util.UUID;
  *
  * @author munir
  */
-public class GetBuyerResponseData extends BaseResponse {
+public class CreateBuyerResponse extends BaseResponse {
     /**
      * Chave do Comprador
      */

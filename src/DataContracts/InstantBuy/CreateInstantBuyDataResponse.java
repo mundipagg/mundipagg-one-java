@@ -12,7 +12,7 @@ import java.util.UUID;
  *
  * @author Munir
  */
-public class CreditCardResponse extends BaseResponse {
+public class CreateInstantBuyDataResponse extends BaseResponse {
     /**
      * Id do InstantBuy
      */
