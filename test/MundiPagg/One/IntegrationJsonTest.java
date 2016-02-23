@@ -532,7 +532,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");
@@ -708,7 +707,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");
@@ -858,7 +856,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");
@@ -927,7 +924,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");
@@ -1019,7 +1015,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");
@@ -1083,7 +1078,6 @@ public class IntegrationJsonTest {
             buyer.setFacebookId("some.id");
             buyer.setGender(GenderEnum.M);
             buyer.setHomePhone("21954325678");
-            buyer.setIpAddress("192.168.1.1");
             buyer.setLastBuyerUpdateInMerchant(Date.valueOf("2015-12-25"));
             buyer.setMobilePhone("21555554556");
             buyer.setName("Dot Net");

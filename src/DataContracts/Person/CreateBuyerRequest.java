@@ -85,11 +85,6 @@ public final class CreateBuyerRequest {
     private String HomePhone;
     
     /**
-     * Endereço de Ip
-     */
-    private String IpAddress;
-    
-    /**
      * Último update do Buyer na loja
      */
     private Date LastBuyerUpdateInMerchant;
@@ -309,22 +304,6 @@ public final class CreateBuyerRequest {
      */
     public void setHomePhone(String HomePhone) {
         this.HomePhone = HomePhone;
-    }
-
-    /**
-     * Retorna o endereço de Ip
-     * @return 
-     */
-    public String getIpAddress() {
-        return IpAddress;
-    }
-
-    /**
-     * Altera o endereço de Ip
-     * @param IpAddress 
-     */
-    public void setIpAddress(String IpAddress) {
-        this.IpAddress = IpAddress;
     }
 
     /**
