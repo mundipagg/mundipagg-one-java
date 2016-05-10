@@ -128,7 +128,17 @@ public enum CreditCardTransactionStatusEnum {
     /**
      * Com erro
      */
-    WithError;
+    WithError,
+    
+     /** 
+     * Transação aguardando cancelamento
+     */
+     WaitingCancellation,
+
+     /**
+      * Número limite de capturas excedido
+      */
+     CaptureNotAllowed;
     
     private CreditCardTransactionStatusEnum() {}
 }
