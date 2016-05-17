@@ -114,15 +114,10 @@ public class SerializeUtility<TObject> {
         // Inicializa objeto que fará a serialização/deserialização
         XStream xstream = new XStream() {
             // Ignora campos desconhecidos na deserialização
-            @Override
             protected MapperWrapper wrapMapper(MapperWrapper next) {
                 return new MapperWrapper(next) {
-                    @Override
                     public boolean shouldSerializeMember(Class definedIn, String fieldName) {
-                        if (definedIn == Object.class) {
-                            return false;
-                        }
-                        return super.shouldSerializeMember(definedIn, fieldName);
+                        return definedIn != Object.class ? super.shouldSerializeMember(definedIn, fieldName) : false;
                     }
                 };
             }
