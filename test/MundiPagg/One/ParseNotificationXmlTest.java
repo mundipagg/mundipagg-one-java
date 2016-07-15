@@ -3,8 +3,10 @@ package MundiPagg.One;
 import Client.GatewayServiceClient;
 import DataContracts.PostNotification.StatusNotification;
 import EnumTypes.OrderStatusEnum;
-import java.util.UUID;
 import org.junit.Test;
+
+import java.util.UUID;
+
 import static org.junit.Assert.*;
 
 /**
@@ -97,5 +99,21 @@ public class ParseNotificationXmlTest {
         }
         catch (Exception ex) { assertTrue(false); }
     }
-        
+
+    @Test
+    public void ParseFromXMLWithUnknownField() {
+        UUID merchantKey = TestsConfiguration.MerchantKey;
+
+        String xmlTest = "<StatusNotification xmlns=\"http://schemas.datacontract.org/2004/07/MundiPagg.NotificationService.DataContract\"\n" +
+                "                    xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "                    i:schemaLocation=\"http://schemas.datacontract.org/2004/07/MundiPagg.NotificationService.DataContract StatusNotificationXmlSchema.xsd\">\n" +
+                "  <AmountInCents>500</AmountInCents>\n" +
+                "  <UnknownField>Value</UnknownField>\n" +
+                "</StatusNotification>";
+
+        GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+        StatusNotification statusNotification = serviceClient.getPostNotification().parseFromXML(xmlTest);
+        assertNotNull(statusNotification);
+        assertEquals(statusNotification.getAmountInCents().toString(), "500");
+    }
 }
