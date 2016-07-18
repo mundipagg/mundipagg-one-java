@@ -20,6 +20,7 @@ import EnumTypes.HttpContentTypeEnum;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.mapper.MapperWrapper;
 
 /**
  * Utilitário para serializar e deserializar
@@ -111,7 +112,16 @@ public class SerializeUtility<TObject> {
     private XStream InitiXmlConverter(Class<TObject> TypeOfResponse)
     {
         // Inicializa objeto que fará a serialização/deserialização
-        XStream xstream = new XStream();
+        XStream xstream = new XStream() {
+            // Ignora campos desconhecidos na deserialização
+            protected MapperWrapper wrapMapper(MapperWrapper next) {
+                return new MapperWrapper(next) {
+                    public boolean shouldSerializeMember(Class definedIn, String fieldName) {
+                        return definedIn != Object.class ? super.shouldSerializeMember(definedIn, fieldName) : false;
+                    }
+                };
+            }
+        };
         
         // Registra conversores 
         xstream.registerConverter(new DateConverter());
