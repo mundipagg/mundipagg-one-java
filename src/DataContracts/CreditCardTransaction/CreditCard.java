@@ -1,9 +1,11 @@
 package DataContracts.CreditCardTransaction;
 
+import java.util.UUID;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import DataContracts.Address.BillingAddress;
 import EnumTypes.CreditCardBrandEnum;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import java.util.UUID;
 
 /**
  * Cartão de Crédito
@@ -17,8 +19,22 @@ public class CreditCard {
     public CreditCard() {}
     
     /**
-     * Endereço de cobrança
-     */
+	 * Construtor da Classe com inicializacao das propriedades
+	 */
+	public CreditCard(CreditCardBrandEnum CreditCardBrand, String CreditCardNumber, String SecurityCode,
+			String HolderName,
+			Integer ExpMonth, Integer ExpYear) {
+		this.CreditCardBrand = CreditCardBrand;
+		this.CreditCardNumber = CreditCardNumber;
+		this.ExpMonth = ExpMonth;
+		this.ExpYear = ExpYear;
+		this.HolderName = HolderName;
+		this.SecurityCode = SecurityCode;
+	}
+
+	/**
+	 * Endereço de cobrança
+	 */
     private BillingAddress BillingAddress;
     
     /**

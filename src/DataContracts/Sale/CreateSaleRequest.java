@@ -1,15 +1,17 @@
 package DataContracts.Sale;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import DataContracts.BaseRequest;
+import DataContracts.SaleOptions;
 import DataContracts.BoletoTransaction.BoletoTransaction;
 import DataContracts.CreditCardTransaction.CreditCardTransaction;
 import DataContracts.Merchant.Merchant;
 import DataContracts.Order.Order;
 import DataContracts.Person.Buyer;
-import DataContracts.SaleOptions;
 import DataContracts.ShoppingCart.ShoppingCart;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Criação de uma nova Venda
@@ -19,8 +21,7 @@ public final class CreateSaleRequest extends BaseRequest {
     /**
      * Construtor da Classe
      */
-    public CreateSaleRequest() 
-    {
+	public CreateSaleRequest() {
         this.setOptions(new SaleOptions());
         this.setBoletoTransactionCollection(new ArrayList());
         this.setCreditCardTransactionCollection(new ArrayList());
@@ -28,8 +29,17 @@ public final class CreateSaleRequest extends BaseRequest {
     }
     
     /**
-     * Lista de transações de boleto
-     */
+	 * Construtor da Classe com inicializacao das propriedades
+	 */
+	public CreateSaleRequest(Order Order, CreditCardTransaction... creditCardTransactions) {
+		this();
+		this.Order = Order;
+		this.CreditCardTransactionCollection.addAll(Arrays.asList(creditCardTransactions));
+	}
+
+	/**
+	 * Lista de transações de boleto
+	 */
     private List<BoletoTransaction> BoletoTransactionCollection;
     
     /**
