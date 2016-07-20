@@ -1,0 +1,51 @@
+buildscript {
+   repositories {
+     mavenCentral()
+   }
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
+
+defaultTasks 'clean', 'build'
+
+repositories {
+  mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+dependencies {
+  compile "com.thoughtworks.xstream:xstream:1.4.8"
+  compile "junit:junit:4.12"
+  compile "org.apache.httpcomponents:httpclient:4.5"
+  compile "com.google.code.gson:gson:2.3.1"
+}
