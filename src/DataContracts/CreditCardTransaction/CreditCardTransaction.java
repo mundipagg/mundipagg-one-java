@@ -99,7 +99,6 @@ public class CreditCardTransaction {
 
 	/**
 	 * Altera opções da transação
-	 * @param Options
 	 */
 	public void addOptions() {
 		this.Options = new CreditCardTransactionOptions();
