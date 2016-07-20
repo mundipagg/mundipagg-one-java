@@ -6,4 +6,5 @@
 .project
 .settings/
 bin/
+.idea/
 
