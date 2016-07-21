@@ -19,12 +19,12 @@ public final class ErrorReport {
     /**
      * Categoria do erro
      */
-    public ErrorCategoryEnum Category;
+    private ErrorCategoryEnum Category;
     
     /**
      * Coleção de Erros
      */
-    public List<ErrorItem> ErrorItemCollection;
+    private List<ErrorItem> ErrorItemCollection;
 
     /**
      * Recupera categoria do erro
