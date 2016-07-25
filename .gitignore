@@ -1,9 +1,11 @@
 /nbproject/private/
 /build/
-/dist/
 .classpath
 .gradle/
 .project
 .settings/
 bin/
+.idea/
 
+.gitignore
+.gitkeep
