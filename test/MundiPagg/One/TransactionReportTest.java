@@ -1,13 +1,17 @@
 package MundiPagg.One;
 
-import Client.GatewayServiceClient;
-import DataContracts.TransactionReport.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import Client.GatewayServiceClient;
+import DataContracts.TransactionReport.TransactionReportFile;
 
 /**
  * Testes para transactionReport
@@ -80,37 +84,35 @@ public class TransactionReportTest {
     }
     
     /**
-     * Testa o método de salvar em disco um relatório relatório de transação 
-     */    
+     * Testa o método de salvar em disco um relatório relatório de transação
+     * @throws Exception
+     */
     @Test
-    public void saveTransactionReportFile() {
-        
+    public void saveTransactionReportFile() throws Exception {
+
         // Define loja
         UUID merchantKey = TestsConfiguration.MerchantKey; // Chave da Loja - MerchantKey
-        
-        try {
-            // Cria data para obtenção do relatório
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("19/09/2015");    
-        
-            // Define path que será salvo
-            String path = System.getProperty("user.dir") + "\\dist";
-        
-            // Cria o cliente que vai efetuar a requisição
-            GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
-            
-            // Efetua o a solicitação do relatório
-            String transactionReportFileData = serviceClient.getTransactionReport().getTransactionReportFile(date);
-            
-            // Salva o arquivo em C:/TransactionReportTest.txt
-            serviceClient.getTransactionReport().saveTransactionReportFile(transactionReportFileData, path, "TransactionReportTest");
-            
-            // Testa se conseguiu obter recurso
-            assertNotNull(transactionReportFileData);
-            assertTrue(transactionReportFileData.length() > 0);
-            boolean exist = new File(path + "\\TransactionReportTest.txt").isFile();
-            new File(path + "\\TransactionReportTest.txt").delete();
-            assertTrue(exist);
-        }
-        catch (Exception ex) { assertTrue(false); }
+
+        // Cria data para obtenção do relatório
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse("19/09/2015");
+
+        // Define path que será salvo
+        String path = System.getProperty("user.dir") + File.separator + "dist";
+
+        // Cria o cliente que vai efetuar a requisição
+        GatewayServiceClient serviceClient = new GatewayServiceClient(merchantKey);
+
+        // Efetua o a solicitação do relatório
+        String transactionReportFileData = serviceClient.getTransactionReport().getTransactionReportFile(date);
+
+        // Salva o arquivo em C:/TransactionReportTest.txt
+        serviceClient.getTransactionReport().saveTransactionReportFile(transactionReportFileData, path, "TransactionReportTest");
+
+        // Testa se conseguiu obter recurso
+        assertNotNull(transactionReportFileData);
+        assertTrue(transactionReportFileData.length() > 0);
+        boolean exist = new File(path + File.separator + "TransactionReportTest.txt").isFile();
+        new File(path + "\\TransactionReportTest.txt").delete();
+        assertTrue(exist);
     }
 }
