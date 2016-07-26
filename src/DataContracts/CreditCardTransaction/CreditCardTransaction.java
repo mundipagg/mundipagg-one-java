@@ -106,6 +106,16 @@ public class CreditCardTransaction {
 	}
 
     /**
+     * Altera opções da transação
+     * 
+     * @deprecated utilizar o metodo withOptions()
+     */
+    @Deprecated
+    public void addOptions() {
+        this.Options = new CreditCardTransactionOptions();
+    }
+
+    /**
      * Recupera recorrência
      * @return 
      */
