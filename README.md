@@ -467,3 +467,17 @@ try {
 ## Documentação da API
 
   http://docs.mundipagg.com/
+  
+## Work with us!
+
+Gostou da nossa SDK? Estamos sempre em busca de gente boa pra codar!
+
+Manda email (vagas@mundipagg.com) ou dá uma olhada nas [vagas](https://github.com/mundipagg/vagas) e vem conhecer a gente! :smile:
+
+Dev queremos você!
+
+Did you like our SDK? We're always looking for good coders!
+
+Send us an email (vagas@mundipagg.com) or take a look at our [jobs](https://github.com/mundipagg/vagas) page and come meet us! :smile:
+
+![We want you](https://raw.githubusercontent.com/mundipagg/vagas/master/we_want_you.jpg)
