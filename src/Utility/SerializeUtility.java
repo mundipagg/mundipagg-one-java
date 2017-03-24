@@ -17,10 +17,13 @@ import DataContracts.Sale.*;
 import DataContracts.ShoppingCart.*;
 import DataContracts.ServiceConstants;
 import EnumTypes.HttpContentTypeEnum;
+import Utility.gson.typeadapters.UtcDateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.MapperWrapper;
+
+import java.util.Date;
 
 /**
  * Utilitário para serializar e deserializar
@@ -90,7 +93,11 @@ public class SerializeUtility<TObject> {
         if(HttpContentTypeEnum.Json == ContentType) 
         {
             // Converte string Json para objeto
-            Gson gson = new GsonBuilder().setDateFormat(ServiceConstants.DATE_TIME_FORMAT).create();
+            Gson gson = new GsonBuilder()
+                            .setDateFormat(ServiceConstants.DATE_TIME_FORMAT)
+                            .registerTypeAdapter(Date.class, new UtcDateDeserializer())
+                            .create();
+
             obj = gson.fromJson(Serialized, TypeOfResponse);
         }
         else if(HttpContentTypeEnum.Xml == ContentType)
