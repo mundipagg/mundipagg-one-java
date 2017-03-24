@@ -56,7 +56,12 @@ public class CreditCardTransactionOptions {
      * Nome que aparecerá na fatura do comprador (caso não informado, o texto configurado no gateway será utilizado)
      */
     private String SoftDescriptorText;
-
+    
+    /**
+     * Url de notificação da transação
+     */
+    private String NotificationUrl;
+    
     /**
      * Recupera Código do método de pagamento.
      * @return 
@@ -200,4 +205,18 @@ public class CreditCardTransactionOptions {
     public void setExtendedLimitCode(String ExtendedLimitCode) {
         this.ExtendedLimitCode = ExtendedLimitCode;
     }    
+
+    /**
+     * @return the NotificationUrl
+     */
+    public String getNotificationUrl() {
+        return NotificationUrl;
+    }
+
+    /**
+     * @param NotificationUrl the NotificationUrl to set
+     */
+    public void setNotificationUrl(String NotificationUrl) {
+        this.NotificationUrl = NotificationUrl;
+    }
 }
