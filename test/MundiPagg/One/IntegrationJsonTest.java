@@ -100,7 +100,7 @@ public class IntegrationJsonTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setFreightCostInCents(2000);
         shoppingCart.setShippingCompany("Correios");
-        shoppingCart.setShoppingCartItemCollection(new ArrayList<>());
+        shoppingCart.setShoppingCartItemCollection(new ArrayList<ShoppingCartItem>());
         shoppingCart.getShoppingCartItemCollection().add(shoppingCartItem);
 
         // Cria um cartão de crédito e define endereço de cobrança
@@ -129,9 +129,9 @@ public class IntegrationJsonTest {
 
         // Cria requisição de venda e usa objetos criados acima
         CreateSaleRequest createSaleRequest = new CreateSaleRequest();
-        createSaleRequest.setCreditCardTransactionCollection(new ArrayList<>());
+        createSaleRequest.setCreditCardTransactionCollection(new ArrayList<CreditCardTransaction>());
         createSaleRequest.getCreditCardTransactionCollection().add(creditCardTransaction);
-        createSaleRequest.setShoppingCartCollection(new ArrayList<>());
+        createSaleRequest.setShoppingCartCollection(new ArrayList<ShoppingCart>());
         createSaleRequest.getShoppingCartCollection().add(shoppingCart);
         createSaleRequest.setOrder(order);
         createSaleRequest.setBuyer(buyer);
@@ -519,7 +519,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
@@ -694,7 +694,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
@@ -843,7 +843,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
@@ -911,7 +911,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
@@ -1002,7 +1002,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
@@ -1065,7 +1065,7 @@ public class IntegrationJsonTest {
 
             // Define a chave do InstantBuy
             CreateBuyerRequest buyer = new CreateBuyerRequest();
-            buyer.setAddressCollection(new ArrayList<>());
+            buyer.setAddressCollection(new ArrayList<BuyerAddress>());
             buyer.getAddressCollection().add(buyerAddress);
             buyer.setBirthdate(Date.valueOf("1994-9-26"));
             buyer.setBuyerCategory(BuyerCategoryEnum.Normal);
