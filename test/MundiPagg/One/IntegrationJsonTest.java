@@ -123,7 +123,10 @@ public class IntegrationJsonTest {
         // Cria a transação de cartão de crédito e define cartão criado anteriormente
         CreditCardTransaction creditCardTransaction = new CreditCardTransaction();
         creditCardTransaction.setAmountInCents(92000L);
-        creditCardTransaction.setOptions(new CreditCardTransactionOptions());
+        CreditCardTransactionOptions options = new CreditCardTransactionOptions();
+        options.setSoftDescriptorText("Teste");
+        options.setNotificationUrl("http://test.mundipagg.com");
+        creditCardTransaction.setOptions(options);
         creditCardTransaction.getOptions().setPaymentMethodCode(1); // Simulator       
         creditCardTransaction.setCreditCard(creditCard);
 
