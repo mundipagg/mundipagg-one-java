@@ -1,8 +1,9 @@
 package DataContracts;
 
-import EnumTypes.ErrorCategoryEnum;
 import java.util.ArrayList;
 import java.util.List;
+
+import EnumTypes.ErrorCategoryEnum;
 
 /**
  * Relação de erros 
@@ -19,12 +20,12 @@ public final class ErrorReport {
     /**
      * Categoria do erro
      */
-    public ErrorCategoryEnum Category;
+    private ErrorCategoryEnum Category;
     
     /**
      * Coleção de Erros
      */
-    public List<ErrorItem> ErrorItemCollection;
+    private List<ErrorItem> ErrorItemCollection;
 
     /**
      * Recupera categoria do erro
@@ -48,6 +49,14 @@ public final class ErrorReport {
      */
     public List<ErrorItem> getErrorItemCollection() {
         return ErrorItemCollection;
+    }
+
+    /**
+     * Adiciona um ErrorItem
+     * @param ErrorItem
+     */
+    public void add(ErrorItem ErrorItem) {
+        ErrorItemCollection.add(ErrorItem);
     }
 
     /**

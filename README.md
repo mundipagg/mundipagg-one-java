@@ -7,6 +7,24 @@ Após efetuar o download do projeto (Criado a partir da IDE *NetBeans*), junto c
 Adicione uma referência deste arquivo *Jar* em seu projeto, e a SDK estará pronta para ser utilizada.
 
 Caso deseje adicionar separadamente nosso SDK e suas dependências, compile o projeto e referencie os arquivos criados na pasta ***dist*** e ***dist/lib***;
+
+## Requisitos mínimos
+
+Para acessar os servidores da Mundipagg você precisa estar compatível com os protocolos TLS 1.1 ou TLS 1.2 (HTTPS).
+Somente o JRE/JDK *1.7* e JRE/JDK *1.8* são compatíveis com o TLS 1.1 ou superior.
+
+No Java 1.8 o suporte a TLS 1.1 é nativo e habilitado por padrão.
+
+No Java 1.7 você precisa forçar o Java para usar o TLS 1.1, iniciando seu cliente ou servidor com as sequiente configurações:
+
+```
+ ... -Ddeployment.security.TLSv1.1=true -Ddeployment.security.TLSv1.2=true -Dhttps.protocols=TLSv1.1,TLSv1.2
+```
+
+Links: 
+* [Enable TLS 1.1 and 1.2 for Clients on Java 7](http://superuser.com/questions/747377/enable-tls-1-1-and-1-2-for-clients-on-java-7)
+* [JDK 8 will use TLS 1.2](https://blogs.oracle.com/java-platform-group/entry/java_8_will_use_tls)
+* [Diagnosing TLS, SSL, and HTTPS](https://blogs.oracle.com/java-platform-group/entry/diagnosing_tls_ssl_and_https)
  
 ## Recursos:
 
@@ -449,3 +467,17 @@ try {
 ## Documentação da API
 
   http://docs.mundipagg.com/
+  
+## Work with us!
+
+Gostou da nossa SDK? Estamos sempre em busca de gente boa pra codar!
+
+Manda email (vagas@mundipagg.com) ou dá uma olhada nas [vagas](https://github.com/mundipagg/vagas) e vem conhecer a gente! :smile:
+
+Dev queremos você!
+
+Did you like our SDK? We're always looking for good coders!
+
+Send us an email (vagas@mundipagg.com) or take a look at our [jobs](https://github.com/mundipagg/vagas) page and come meet us! :smile:
+
+![We want you](https://raw.githubusercontent.com/mundipagg/vagas/master/we_want_you.jpg)

@@ -11,8 +11,15 @@ public class Order {
     public Order() {}
     
     /**
-     * Identificador do pedido na loja
-     */
+	 * Construtor da Classe com inicializacao das propriedades
+	 */
+	public Order(String OrderReference) {
+		this.OrderReference = OrderReference;
+	}
+
+	/**
+	 * Identificador do pedido na loja
+	 */
     private String OrderReference;
 
     /**

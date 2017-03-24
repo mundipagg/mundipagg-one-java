@@ -78,6 +78,15 @@ public class CreditCardTransactionOptions {
         this.PaymentMethodCode = PaymentMethodCode;
     }
 
+	/**
+	 * Altera Código do método de pagamento.
+	 * @param PaymentMethodCode
+	 */
+    public CreditCardTransactionOptions withPaymentMethodCode(Integer PaymentMethodCode) {
+		this.PaymentMethodCode = PaymentMethodCode;
+		return this;
+	}
+
     /**
      * Recupera Tipo da Moeda
      * @return 
@@ -94,6 +103,15 @@ public class CreditCardTransactionOptions {
         this.CurrencyIso = CurrencyIso;
     }
 
+	/**
+	 * Altera Tipo da Moeda
+	 * @param CurrencyIso
+	 */
+    public CreditCardTransactionOptions withCurrencyIso(CurrencyIsoEnum CurrencyIso) {
+		this.CurrencyIso = CurrencyIso;
+		return this;
+	}
+
     /**
      * Recupera taxa para a companhia aérea
      * @return 
@@ -108,6 +126,16 @@ public class CreditCardTransactionOptions {
      */
     public void setIataAmountInCents(Long IataAmountInCents) {
         this.IataAmountInCents = IataAmountInCents;
+    }
+    
+    /**
+     * Altera taxa para a companhia aérea
+     * @param IataAmountInCents 
+     * @return 
+     */
+    public CreditCardTransactionOptions withIataAmountInCents(Long IataAmountInCents) {
+        this.IataAmountInCents = IataAmountInCents;
+        return this;
     }
 
     /**
@@ -127,6 +155,16 @@ public class CreditCardTransactionOptions {
     }
 
     /**
+     * Altera Tempo que a transação deverá esperar até ser capturada (contando a partir da data de criação)
+     * @param CaptureDelayInMinutes 
+     * @return 
+     */
+    public CreditCardTransactionOptions withCaptureDelayInMinutes(Integer CaptureDelayInMinutes) {
+        this.CaptureDelayInMinutes = CaptureDelayInMinutes;
+        return this;
+    }
+    
+    /**
      * Recupera Categoria da loja - MCC
      * @return 
      */
@@ -143,6 +181,16 @@ public class CreditCardTransactionOptions {
     }
 
     /**
+     * Altera Categoria da loja - MCC
+     * @param MerchantCategoryCode 
+     * @return 
+     */
+    public CreditCardTransactionOptions withMerchantCategoryCode(Long MerchantCategoryCode) {
+        this.MerchantCategoryCode = MerchantCategoryCode;
+        return this;
+    }
+    
+    /**
      * Recupera Nome que aparecerá na fatura do comprador (caso não informado, o texto configurado no gateway será utilizado)   
      * @return 
      */
@@ -156,6 +204,16 @@ public class CreditCardTransactionOptions {
      */
     public void setSoftDescriptorText(String SoftDescriptorText) {
         this.SoftDescriptorText = SoftDescriptorText;
+    }
+    
+    /**
+     * Altera Nome que aparecerá na fatura do comprador (caso não informado, o texto configurado no gateway será utilizado)
+     * @param SoftDescriptorText 
+     * @return 
+     */
+    public CreditCardTransactionOptions withSoftDescriptorText(String SoftDescriptorText) {
+        this.SoftDescriptorText = SoftDescriptorText;
+        return this;
     }
 
     /**
@@ -172,6 +230,16 @@ public class CreditCardTransactionOptions {
      */
     public void setInterestRate(Float InterestRate) {
         this.InterestRate = InterestRate;
+    }
+    
+    /**
+     * Altera Taxa de Juros
+     * @param InterestRate 
+     * @return 
+     */
+    public CreditCardTransactionOptions withInterestRate(Float InterestRate) {
+        this.InterestRate = InterestRate;
+        return this;
     }
 
     /**
@@ -191,6 +259,16 @@ public class CreditCardTransactionOptions {
     }
 
     /**
+     * Altera se limite extendido está habilitado
+     * @param ExtendedLimitEnabled 
+     * @return 
+     */
+    public CreditCardTransactionOptions withExtendedLimitEnabled(Boolean ExtendedLimitEnabled) {
+        this.ExtendedLimitEnabled = ExtendedLimitEnabled;
+        return this;
+    }
+    
+    /**
      * Recupera código do limite extendido 
      * @return 
      */
@@ -204,6 +282,16 @@ public class CreditCardTransactionOptions {
      */
     public void setExtendedLimitCode(String ExtendedLimitCode) {
         this.ExtendedLimitCode = ExtendedLimitCode;
+    }
+    
+    /**
+     * Altera código do limite extendido 
+     * @param ExtendedLimitCode 
+     * @return 
+     */
+    public CreditCardTransactionOptions withExtendedLimitCode(String ExtendedLimitCode) {
+        this.ExtendedLimitCode = ExtendedLimitCode;
+        return this;
     }    
 
     /**

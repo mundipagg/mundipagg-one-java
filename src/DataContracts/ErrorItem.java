@@ -13,6 +13,15 @@ public class ErrorItem {
     public ErrorItem() {}
     
     /**
+     * Construtor da classe com inicializacao das propriedades
+     */
+    public ErrorItem(String Description, String ErrorField, SeverityCodeEnum SeverityCode) {
+        this.Description = Description;
+        this.ErrorField = ErrorField;
+        this.SeverityCode = SeverityCode;
+    }
+
+    /**
      * Descrição do erro
      */
     private String Description;

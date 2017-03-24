@@ -1,8 +1,9 @@
 package DataContracts.CreditCardTransaction;
 
+import java.util.Date;
+
 import DataContracts.Recurrency.Recurrency;
 import EnumTypes.CreditCardOperationEnum;
-import java.util.Date;
 
 /**
  * Transação de cartão de crédito
@@ -15,14 +16,24 @@ public class CreditCardTransaction {
     public CreditCardTransaction() {}
     
     /**
-     * Valor original da transação em centavos
-     */
+	 * Construtor da Classe com inicializacao das propriedades
+	 */
+	public CreditCardTransaction(Long AmountInCents, CreditCard CreditCard,
+			CreditCardOperationEnum CreditCardOperation) {
+		this.AmountInCents = AmountInCents;
+		this.CreditCard = CreditCard;
+		this.CreditCardOperation = CreditCardOperation;
+	}
+
+	/**
+	 * Valor original da transação em centavos
+	 */
     private Long AmountInCents;
     
     /**
      * Cartão de Crédito
      */
-    private CreditCard CreditCard;   
+	private CreditCard CreditCard;
     
     /**
      * Tipo de operação de cartão de crédito
@@ -32,7 +43,7 @@ public class CreditCardTransaction {
     /**
      * Números de parcelas da transação
      */
-    private Integer InstallmentCount;
+	private Integer InstallmentCount = 1;
     
     /**
      * Opções da transação
@@ -59,7 +70,7 @@ public class CreditCardTransaction {
      * @return 
      */
     public CreditCard getCreditCard() {
-        return CreditCard;
+		return CreditCard;
     }
 
     /**
@@ -67,7 +78,7 @@ public class CreditCardTransaction {
      * @param CreditCard 
      */
     public void setCreditCard(CreditCard CreditCard) {
-        this.CreditCard = CreditCard;
+		this.CreditCard = CreditCard;
     }
 
     /**
@@ -84,6 +95,24 @@ public class CreditCardTransaction {
      */
     public void setOptions(CreditCardTransactionOptions Options) {
         this.Options = Options;
+    }
+
+	/**
+	 * Altera opções da transação
+	 */
+	public CreditCardTransactionOptions withOptions() {
+		this.Options = new CreditCardTransactionOptions();
+		return this.Options;
+	}
+
+    /**
+     * Altera opções da transação
+     * 
+     * @deprecated utilizar o metodo withOptions()
+     */
+    @Deprecated
+    public void addOptions() {
+        this.Options = new CreditCardTransactionOptions();
     }
 
     /**
