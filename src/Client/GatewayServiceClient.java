@@ -26,6 +26,11 @@ public class GatewayServiceClient {
     private PostNotificationResource PostNotification;
     
     /**
+     * Recursos para Buyer
+     */
+    private BuyerResource Buyer;
+    
+    /**
      * Recursos para relatório de transações
      */
     private TransactionReportResource TransactionReport;
@@ -45,6 +50,14 @@ public class GatewayServiceClient {
     public CreditCardResource getCreditCard() {
         return CreditCard;
     }   
+    
+    /**
+     * Recupera recurso do Buyer
+     * @return 
+     */
+    public BuyerResource getBuyer() {
+        return Buyer;
+    }
 
     /**
      * Recupera recurso de post de notificação
@@ -76,6 +89,7 @@ public class GatewayServiceClient {
         this.CreditCard = new CreditCardResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
         this.PostNotification = new PostNotificationResource();
         this.TransactionReport = new TransactionReportResource(merchantKey, environment, hostUri);
+        this.Buyer = new BuyerResource(merchantKey, environment, HttpContentTypeEnum.Json, hostUri);
     }
     
     /**
